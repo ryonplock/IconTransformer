@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
 	private ListView listView;
 	private ArrayList<AppInfo> list = new ArrayList<AppInfo>();
 	private ProgressDialog pdialog;
+	private AppListAdapter mAdapter;
 	private PackageManager manager;
 
 	@Override
@@ -111,7 +112,10 @@ public class MainActivity extends Activity {
 				break;
 			case 2:
 				pdialog.cancel();
-				listView.setAdapter(new AppListAdapter());
+				mAdapter = new AppListAdapter();
+				SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
+				swingBottomInAnimationAdapter.setListView(listView);
+				listView.setAdapter(swingBottomInAnimationAdapter);
 				break;
 			}
 		}
