@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import com.android.iconchanger.animation.SwingBottomInAnimationAdapter;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ComponentName;
@@ -27,7 +29,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class AppListActivity extends Activity {
 	
 	private ListView listView;
 	private ArrayList<AppInfo> list = new ArrayList<AppInfo>();
@@ -105,7 +107,7 @@ public class MainActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
-				pdialog = new ProgressDialog(MainActivity.this);
+				pdialog = new ProgressDialog(AppListActivity.this);
 				pdialog.setCanceledOnTouchOutside(false);
 				pdialog.setMessage(getResources().getString(R.string.loading_app));
 				pdialog.show();

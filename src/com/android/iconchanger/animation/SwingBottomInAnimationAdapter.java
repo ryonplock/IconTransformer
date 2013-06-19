@@ -1,4 +1,4 @@
-package com.android.iconchanger;
+package com.android.iconchanger.animation;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;

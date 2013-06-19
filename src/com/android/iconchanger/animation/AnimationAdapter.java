@@ -1,4 +1,4 @@
-package com.android.iconchanger;
+package com.android.iconchanger.animation;
 
 import junit.framework.Assert;
 import android.animation.Animator;
