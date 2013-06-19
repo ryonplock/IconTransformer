@@ -36,6 +36,8 @@ public class AppListActivity extends Activity {
 	private ProgressDialog pdialog;
 	private AppListAdapter mAdapter;
 	private PackageManager manager;
+	private final static int START_LOADING = 0x01;
+	private final static int STOP_LOADING = 0x02;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,17 +45,6 @@ public class AppListActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		listView = (ListView) findViewById(R.id.applist);
 		manager = getPackageManager();
-		Init();
-	}
-	
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	private void Init() {
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -72,13 +63,25 @@ public class AppListActivity extends Activity {
 //				MainActivity.this.finish();
 			}
 		});
-		loadApplications();
+		loadApps();
 	}
 	
-	private void loadApplications() {
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	private void Init() {
+		
+		
+	}
+	
+	private void loadApps() {
 		new Thread() {
 			public void run() {
-				handler.sendEmptyMessage(1);
+				handler.sendEmptyMessage(START_LOADING);
 				list.clear();
 				Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
 				mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -97,7 +100,7 @@ public class AppListActivity extends Activity {
 						list.add(appInfo);
 					}// end for
 				}
-				handler.sendEmptyMessage(2);
+				handler.sendEmptyMessage(STOP_LOADING);
 
 			}
 		}.start();
@@ -106,13 +109,13 @@ public class AppListActivity extends Activity {
 	Handler handler = new Handler() {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case 1:
+			case START_LOADING:
 				pdialog = new ProgressDialog(AppListActivity.this);
 				pdialog.setCanceledOnTouchOutside(false);
 				pdialog.setMessage(getResources().getString(R.string.loading_app));
 				pdialog.show();
 				break;
-			case 2:
+			case STOP_LOADING:
 				pdialog.cancel();
 				mAdapter = new AppListAdapter();
 				SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
@@ -127,25 +130,21 @@ public class AppListActivity extends Activity {
 
 		@Override
 		public int getCount() {
-			// TODO Auto-generated method stub
 			return list.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			// TODO Auto-generated method stub
 			return list.get(position);
 		}
 
 		@Override
 		public long getItemId(int position) {
-			// TODO Auto-generated method stub
 			return position;
 		}
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
 			Holder holder;
 			if (convertView == null) {
 				holder = new Holder();
@@ -179,7 +178,7 @@ public class AppListActivity extends Activity {
 		try {
 			Intent shortcutIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 			shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, appName);
-			shortcutIntent.putExtra("duplicate", false); // 不允许重复创建
+			shortcutIntent.putExtra("duplicate", false); 
 			
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.setComponent(new ComponentName(packageName,activityName));
@@ -189,7 +188,6 @@ public class AppListActivity extends Activity {
 					Intent.ShortcutIconResource.fromContext(this,R.drawable.ic_launcher));
 			sendBroadcast(shortcutIntent);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -21,6 +21,7 @@ project.properties
 # Eclipse project files
 .classpath
 .project
+lint.xml
 
 #.gitignore
 
