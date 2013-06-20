@@ -54,16 +54,18 @@ public class AppListActivity extends Activity {
 				String packageName = list.get(position).packageName;
 				String activityName = list.get(position).activityName;
 				Log.i("ShortCut", "APP "  + appName + " " + packageName + " " + activityName);
-				creatShortCut(appName, packageName, activityName);
-//				Intent in = new Intent();
-//				in.putExtra("appName", list.get(position).title);
-//				in.putExtra("packageName", list.get(position).packageName);
-//				in.putExtra("activityName", list.get(position).ActivityName);
-//				MainActivity.this.setResult(RESULT_OK, in);
-//				MainActivity.this.finish();
+//				creatShortCut(appName, packageName, activityName);
+				Intent intent = new Intent();
+				intent.putExtra("appName", appName);
+				intent.putExtra("packageName", packageName);
+				intent.putExtra("activityName", activityName);
+				intent.setClass(AppListActivity.this, IconGridActivity.class);
+				startActivity(intent);
+//				AppListActivity.this.setResult(RESULT_OK, in);
+//				AppListActivity.this.finish();
 			}
 		});
-		loadApps();
+		loadAppList();
 	}
 	
 	@Override
@@ -73,12 +75,10 @@ public class AppListActivity extends Activity {
 		return true;
 	}
 	
-	private void Init() {
-		
-		
-	}
-	
-	private void loadApps() {
+	/**
+	 * Load installed apps in background.
+	 */
+	private void loadAppList() {
 		new Thread() {
 			public void run() {
 				handler.sendEmptyMessage(START_LOADING);
@@ -126,6 +126,7 @@ public class AppListActivity extends Activity {
 		}
 	};
 	
+	/** ListView Adapter */
 	public class AppListAdapter extends BaseAdapter {
 
 		@Override
@@ -174,7 +175,13 @@ public class AppListActivity extends Activity {
 	}
 
 
-	public void creatShortCut(String appName,String packageName,String activityName){
+	/**
+	 * Create shortcut in home screen. 
+	 * @param appName
+	 * @param packageName
+	 * @param activityName
+	 */
+	public void createShortCut(String appName,String packageName,String activityName){
 		try {
 			Intent shortcutIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 			shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, appName);
