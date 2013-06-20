@@ -53,4 +53,11 @@ public class GridViewAdapter extends BaseAdapter {
 	class Holder {
 		ImageView imageView;
 	}
+	
+	/**
+	 * icon styles:
+	 * marce: 20 Ciceronian @ Marcelo Marfil http://findicons.com/pack/2101/ciceronian
+	 * matt: 16 Austerity @ Mattrich http://findicons.com/pack/2206/austerity
+	 * ambit: 18 Aluminum @ AmbitDesigns  http://findicons.com/pack/2130/aluminum
+	 */
 }
