@@ -4,11 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.android.iconchanger.animation.SwingBottomInAnimationAdapter;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -16,7 +13,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -28,6 +24,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.android.iconchanger.animation.SwingBottomInAnimationAdapter;
+import com.android.iconchanger.utils.L;
 
 public class AppListActivity extends Activity {
 	
@@ -53,8 +52,7 @@ public class AppListActivity extends Activity {
 				String appName = list.get(position).appName;
 				String packageName = list.get(position).packageName;
 				String activityName = list.get(position).activityName;
-				Log.i("ShortCut", "APP "  + appName + " " + packageName + " " + activityName);
-//				creatShortCut(appName, packageName, activityName);
+				L.d("APP "  + appName + " " + packageName + " " + activityName);
 				Intent intent = new Intent();
 				intent.putExtra("appName", appName);
 				intent.putExtra("packageName", packageName);
@@ -175,30 +173,6 @@ public class AppListActivity extends Activity {
 	}
 
 
-	/**
-	 * Create shortcut in home screen. 
-	 * @param appName
-	 * @param packageName
-	 * @param activityName
-	 */
-	public void createShortCut(String appName,String packageName,String activityName){
-		try {
-			Intent shortcutIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
-			shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, appName);
-			shortcutIntent.putExtra("duplicate", false); 
-			
-			Intent intent = new Intent(Intent.ACTION_MAIN);
-			intent.setComponent(new ComponentName(packageName,activityName));
-			
-			shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
-			shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-					Intent.ShortcutIconResource.fromContext(this,R.drawable.ic_launcher));
-			sendBroadcast(shortcutIntent);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	class Holder {
 		public ImageView appImg;
 		public TextView appName;

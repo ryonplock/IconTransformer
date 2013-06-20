@@ -3,4 +3,4 @@ IconChanger
 
 Android Icon Changer
 
-Creat shortcut with specified icon on homescreen. 
+Create shortcut with specified icon on home screen. 
