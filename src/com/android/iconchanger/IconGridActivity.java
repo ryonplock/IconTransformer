@@ -8,17 +8,19 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
 
 public class IconGridActivity extends Activity implements OnClickListener{
 	
+	private EditText input;
 	private Button btn_pick;
 	private GridView iconsView;
 	private String appName, packageName, activityName;
@@ -33,6 +35,8 @@ public class IconGridActivity extends Activity implements OnClickListener{
 		packageName = intent.getStringExtra("packageName");
 		activityName = intent.getStringExtra("activityName");
 		
+		input = (EditText) findViewById(R.id.input);
+		input.setText(appName);
 		btn_pick = (Button) findViewById(R.id.pick);
 		btn_pick.setOnClickListener(this);
 		
@@ -45,8 +49,10 @@ public class IconGridActivity extends Activity implements OnClickListener{
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// TODO 
-				
+				int[] tmp = GridViewAdapter.matt_res;
+				String input_name = input.getText().toString();
+				createShortcut(TextUtils.isEmpty(input_name) ? " " : input_name, packageName, activityName, 
+						Intent.ShortcutIconResource.fromContext(IconGridActivity.this,tmp[position]));
 			}
 		});
 		super.onCreate(savedInstanceState);
@@ -65,7 +71,8 @@ public class IconGridActivity extends Activity implements OnClickListener{
 			}
 			case REQUEST_CODE_SYETEM_CROP:{
 				Bitmap btm = data.getParcelableExtra("data");
-				createShortcut(appName, packageName, activityName, btm);
+				String input_name = input.getText().toString();
+				createShortcut(TextUtils.isEmpty(input_name) ? " " : input_name, packageName, activityName, btm);
 				btm.recycle();
 				btm = null;
 				break;

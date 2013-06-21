@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="loading_app">Loading Application...</string>
     <string name="pick_icon">Pick icon in Gallery</string>
+    <string name="input_appname">Please input app name</string>
 
 </resources>
