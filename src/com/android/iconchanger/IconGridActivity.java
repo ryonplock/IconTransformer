@@ -11,6 +11,8 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.Toast;
@@ -26,16 +28,27 @@ public class IconGridActivity extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setContentView(R.layout.icon_grid);
+		Intent intent = getIntent();
+		appName = intent.getStringExtra("appName");
+		packageName = intent.getStringExtra("packageName");
+		activityName = intent.getStringExtra("activityName");
+		
 		btn_pick = (Button) findViewById(R.id.pick);
 		btn_pick.setOnClickListener(this);
 		
 		iconsView = (GridView) findViewById(R.id.icons_grid);
 		//TODO
-		
-		Intent intent = getIntent();
-		appName = intent.getStringExtra("appName");
-		packageName = intent.getStringExtra("packageName");
-		activityName = intent.getStringExtra("activityName");
+		GridViewAdapter adapter = new GridViewAdapter(this, GridViewAdapter.STYLE_MATT);
+		iconsView.setAdapter(adapter);
+		iconsView.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// TODO 
+				
+			}
+		});
 		super.onCreate(savedInstanceState);
 	}
 	

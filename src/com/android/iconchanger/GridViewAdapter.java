@@ -10,17 +10,38 @@ import android.widget.ImageView;
 public class GridViewAdapter extends BaseAdapter {
 
 	private Context mComtext;
+	private int mStyle;
+	private int[] mRes;
 	private Holder holder = null;
+	
+	public static final int STYLE_MARCE = 0x2001;
+	public static final int STYLE_MATT = 0x2002;
+	public static final int STYLE_AMBIT = 0x2003;
 
-	public GridViewAdapter(Context context) {
+	public GridViewAdapter(Context context, int style) {
 		super();
 		mComtext = context;
+		mStyle = style;
+		
+		switch(mStyle){
+		case STYLE_MARCE:
+			mRes = marce_res;
+			break;
+		case STYLE_MATT:
+			mRes = matt_res;
+			break;
+		case STYLE_AMBIT:
+			mRes = ambit_res;
+			break;
+		default:
+			mRes = marce_res;
+			break;
+		}
 	}
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return mRes.length;
 	}
 
 	@Override
@@ -31,8 +52,7 @@ public class GridViewAdapter extends BaseAdapter {
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
-		return 0;
+		return position;
 	}
 
 	@Override
@@ -47,12 +67,37 @@ public class GridViewAdapter extends BaseAdapter {
 		} else {
 			holder = (Holder) convertView.getTag();
 		}
+		if (mRes != null && position < mRes.length){
+			holder.imageView.setImageResource(mRes[position]);
+		}
 		return convertView;
 	}
 
 	class Holder {
 		ImageView imageView;
 	}
+	
+	public static final int[] marce_res = new int[]{R.drawable.marce_appstore,R.drawable.marce_calendar,
+		R.drawable.marce_camera,R.drawable.marce_clock,R.drawable.marce_contacts,
+		R.drawable.marce_ipod,R.drawable.marce_itunes,R.drawable.marce_mail,
+		R.drawable.marce_maps,R.drawable.marce_music,R.drawable.marce_notes,
+		R.drawable.marce_phone,R.drawable.marce_photos,R.drawable.marce_safari,
+		R.drawable.marce_settings,R.drawable.marce_stocks,R.drawable.marce_text,
+		R.drawable.marce_videos,R.drawable.marce_weather,R.drawable.marce_youtube};
+	
+	public static final int[] matt_res = new int[]{R.drawable.matt_addressbook,R.drawable.matt_appstore,
+		R.drawable.matt_calculator,R.drawable.matt_mail,R.drawable.matt_maps,
+		R.drawable.matt_messages,R.drawable.matt_mobilecal,R.drawable.matt_mobilestore,
+		R.drawable.matt_mobiletimer,R.drawable.matt_notes,R.drawable.matt_phone,
+		R.drawable.matt_preferences,R.drawable.matt_safari,R.drawable.matt_stocks,
+		R.drawable.matt_winterboard,R.drawable.matt_youtube};
+	
+	public static final int[] ambit_res = new int[]{R.drawable.ambit_calculator,R.drawable.ambit_calendar,
+		R.drawable.ambit_camera,R.drawable.ambit_clock,R.drawable.ambit_cydia,R.drawable.ambit_ifile,
+		R.drawable.ambit_itunes,R.drawable.ambit_mail,R.drawable.ambit_maps,R.drawable.ambit_mxtube,
+		R.drawable.ambit_netnews,R.drawable.ambit_phone,R.drawable.ambit_stack,R.drawable.ambit_things,
+		R.drawable.ambit_twitterrific,R.drawable.ambit_weather,R.drawable.ambit_winterboard,
+		R.drawable.ambit_youtube};
 	
 	/**
 	 * icon styles:
