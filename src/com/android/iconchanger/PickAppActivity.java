@@ -28,7 +28,7 @@ import android.widget.TextView;
 import com.android.iconchanger.animation.SwingBottomInAnimationAdapter;
 import com.android.iconchanger.utils.L;
 
-public class AppListActivity extends Activity {
+public class PickAppActivity extends Activity {
 	
 	private ListView listView;
 	private ArrayList<AppInfo> list = new ArrayList<AppInfo>();
@@ -41,7 +41,7 @@ public class AppListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.app_activity);
 		listView = (ListView) findViewById(R.id.applist);
 		manager = getPackageManager();
 		
@@ -52,12 +52,12 @@ public class AppListActivity extends Activity {
 				String appName = list.get(position).appName;
 				String packageName = list.get(position).packageName;
 				String activityName = list.get(position).activityName;
-				L.d("APP "  + appName + " " + packageName + " " + activityName);
+				L.i("APP "  + appName + " " + packageName + " " + activityName);
 				Intent intent = new Intent();
 				intent.putExtra("appName", appName);
 				intent.putExtra("packageName", packageName);
 				intent.putExtra("activityName", activityName);
-				intent.setClass(AppListActivity.this, IconGridActivity.class);
+				intent.setClass(PickAppActivity.this, PickIconActivity.class);
 				startActivity(intent);
 //				AppListActivity.this.setResult(RESULT_OK, in);
 //				AppListActivity.this.finish();
@@ -108,7 +108,7 @@ public class AppListActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case START_LOADING:
-				pdialog = new ProgressDialog(AppListActivity.this);
+				pdialog = new ProgressDialog(PickAppActivity.this);
 				pdialog.setCanceledOnTouchOutside(false);
 				pdialog.setMessage(getResources().getString(R.string.loading_app));
 				pdialog.show();

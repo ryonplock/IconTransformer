@@ -1,6 +1,10 @@
 package com.android.iconchanger;
 
-import android.app.Activity;
+import com.android.iconchanger.IconFragment.IconItemClickListener;
+import com.android.iconchanger.indicator.IconPageIndicator;
+import com.android.iconchanger.indicator.PageIndicator;
+import com.android.iconchanger.utils.L;
+
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,28 +12,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridView;
 import android.widget.Toast;
 
-public class IconGridActivity extends Activity implements OnClickListener{
+public class PickIconActivity extends FragmentActivity implements
+		OnClickListener, IconItemClickListener {
 	
 	private EditText input;
 	private Button btn_pick;
-	private GridView iconsView;
+	private ViewPager mViewPager;
+	private IconViewPagerAdapter mPagerAdapter;
+	private PageIndicator mIndicator;
 	private String appName, packageName, activityName;
 	private static final int REQUEST_CODE_SYETEM_GALLERY = 0x1001;
 	private static final int REQUEST_CODE_SYETEM_CROP = 0x1002;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		setContentView(R.layout.icon_grid);
+		setContentView(R.layout.icon_activity);
 		Intent intent = getIntent();
 		appName = intent.getStringExtra("appName");
 		packageName = intent.getStringExtra("packageName");
@@ -40,21 +46,13 @@ public class IconGridActivity extends Activity implements OnClickListener{
 		btn_pick = (Button) findViewById(R.id.pick);
 		btn_pick.setOnClickListener(this);
 		
-		iconsView = (GridView) findViewById(R.id.icons_grid);
-		//TODO
-		GridViewAdapter adapter = new GridViewAdapter(this, GridViewAdapter.STYLE_MATT);
-		iconsView.setAdapter(adapter);
-		iconsView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				int[] tmp = GridViewAdapter.matt_res;
-				String input_name = input.getText().toString();
-				createShortcut(TextUtils.isEmpty(input_name) ? " " : input_name, packageName, activityName, 
-						Intent.ShortcutIconResource.fromContext(IconGridActivity.this,tmp[position]));
-			}
-		});
+		mViewPager = (ViewPager) findViewById(R.id.pager);
+		mPagerAdapter = new IconViewPagerAdapter(this, getSupportFragmentManager());
+		mViewPager.setAdapter(mPagerAdapter);
+		mIndicator = (IconPageIndicator) findViewById(R.id.indicator);
+		mIndicator.setViewPager(mViewPager);
+		
+		
 		super.onCreate(savedInstanceState);
 	}
 	
@@ -135,14 +133,12 @@ public class IconGridActivity extends Activity implements OnClickListener{
 		try {
 			Intent shortcutIntent = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");
 			shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, appName);
-			shortcutIntent.putExtra("duplicate", false); 
+			shortcutIntent.putExtra("duplicate", true); 
 			
 			Intent intent = new Intent(Intent.ACTION_MAIN);
 			intent.setComponent(new ComponentName(packageName,activityName));
 			
 			shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, intent);
-//			shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-//					Intent.ShortcutIconResource.fromContext(this,R.drawable.ic_launcher));
 			if (value instanceof Bitmap){
 				shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, value);
 			} else {
@@ -154,5 +150,30 @@ public class IconGridActivity extends Activity implements OnClickListener{
 			e.printStackTrace();
 		}
 	}
+
+
+	@Override
+	public void onIconItemClick(int style, int position) {
+		L.e("onIconItemClick: " + style + "/" + position);
+		int[] tmp = null;
+		switch(style){
+		case IconGridViewAdapter.STYLE_MARCE:
+			tmp = IconGridViewAdapter.marce_res;
+			break;
+		case IconGridViewAdapter.STYLE_MATT:
+			tmp = IconGridViewAdapter.matt_res;
+			break;
+		case IconGridViewAdapter.STYLE_AMBIT:
+			tmp = IconGridViewAdapter.ambit_res;
+			break;
+		default:
+			break;
+		}
+		String input_name = input.getText().toString();
+		if (tmp != null)
+		   createShortcut(TextUtils.isEmpty(input_name) ? " " : input_name, packageName, activityName, 
+				Intent.ShortcutIconResource.fromContext(PickIconActivity.this,tmp[position]));
+	}
+	
 
 }

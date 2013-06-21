@@ -1,5 +1,7 @@
 package com.android.iconchanger;
 
+import com.android.iconchanger.utils.L;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,18 +9,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-public class GridViewAdapter extends BaseAdapter {
+public class IconGridViewAdapter extends BaseAdapter {
 
 	private Context mComtext;
 	private int mStyle;
 	private int[] mRes;
 	private Holder holder = null;
 	
-	public static final int STYLE_MARCE = 0x2001;
-	public static final int STYLE_MATT = 0x2002;
-	public static final int STYLE_AMBIT = 0x2003;
+	public static final int STYLE_MARCE = 2001;
+	public static final int STYLE_MATT = 2002;
+	public static final int STYLE_AMBIT = 2003;
 
-	public GridViewAdapter(Context context, int style) {
+	public IconGridViewAdapter(Context context, int style) {
 		super();
 		mComtext = context;
 		mStyle = style;
@@ -26,15 +28,17 @@ public class GridViewAdapter extends BaseAdapter {
 		switch(mStyle){
 		case STYLE_MARCE:
 			mRes = marce_res;
+			L.i("switch 1:" + mStyle);
 			break;
 		case STYLE_MATT:
 			mRes = matt_res;
+			L.i("switch 2:" + mStyle);
 			break;
 		case STYLE_AMBIT:
 			mRes = ambit_res;
+			L.i("switch 3:" + mStyle);
 			break;
 		default:
-			mRes = marce_res;
 			break;
 		}
 	}

@@ -7,9 +7,9 @@ public class L {
 	private static final boolean DEBUG = true;
 	private static final String TAG = "ICON_CHANGER";
 	
-	public static void d(String msg){
+	public static void i(String msg){
 		if(DEBUG)
-			Log.d(TAG, msg);
+			Log.i(TAG, msg);
 	}
 	
 	public static void e(String msg){

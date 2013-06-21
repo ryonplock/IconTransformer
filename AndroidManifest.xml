@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.android.iconchanger.AppListActivity"
+            android:name="com.android.iconchanger.PickAppActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="com.android.iconchanger.IconGridActivity">
+        <activity android:name="com.android.iconchanger.PickIconActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan">
         </activity>
     </application>
 
