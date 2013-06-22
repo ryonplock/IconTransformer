@@ -1,7 +1,7 @@
 package com.android.iconchanger;
 
 import com.android.iconchanger.IconFragment.IconItemClickListener;
-import com.android.iconchanger.indicator.IconPageIndicator;
+import com.android.iconchanger.indicator.UnderlinePageIndicator;
 import com.android.iconchanger.indicator.PageIndicator;
 import com.android.iconchanger.utils.L;
 
@@ -49,7 +49,7 @@ public class PickIconActivity extends FragmentActivity implements
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mPagerAdapter = new IconViewPagerAdapter(this, getSupportFragmentManager());
 		mViewPager.setAdapter(mPagerAdapter);
-		mIndicator = (IconPageIndicator) findViewById(R.id.indicator);
+		mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
 		mIndicator.setViewPager(mViewPager);
 		
 		
@@ -157,18 +157,28 @@ public class PickIconActivity extends FragmentActivity implements
 		L.e("onIconItemClick: " + style + "/" + position);
 		int[] tmp = null;
 		switch(style){
+		case IconGridViewAdapter.STYLE_SMARTISAN_1:
+			tmp = IconGridViewAdapter.smartisan_res_1;
+			break;
+		case IconGridViewAdapter.STYLE_SMARTISAN_2:
+			tmp = IconGridViewAdapter.smartisan_res_2;
+			break;
+		case IconGridViewAdapter.STYLE_SMARTISAN_3:
+			tmp = IconGridViewAdapter.smartisan_res_3;
+			break;
+		case IconGridViewAdapter.STYLE_SMARTISAN_4:
+			tmp = IconGridViewAdapter.smartisan_res_4;
+			break;
 		case IconGridViewAdapter.STYLE_MARCE:
 			tmp = IconGridViewAdapter.marce_res;
 			break;
 		case IconGridViewAdapter.STYLE_MATT:
 			tmp = IconGridViewAdapter.matt_res;
 			break;
-		case IconGridViewAdapter.STYLE_AMBIT:
-			tmp = IconGridViewAdapter.ambit_res;
-			break;
 		default:
 			break;
 		}
+		
 		String input_name = input.getText().toString();
 		if (tmp != null)
 		   createShortcut(TextUtils.isEmpty(input_name) ? " " : input_name, packageName, activityName, 

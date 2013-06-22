@@ -1,7 +1,5 @@
 package com.android.iconchanger;
 
-import com.android.iconchanger.utils.L;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +14,16 @@ public class IconGridViewAdapter extends BaseAdapter {
 	private int[] mRes;
 	private Holder holder = null;
 	
-	public static final int STYLE_MARCE = 2001;
-	public static final int STYLE_MATT = 2002;
-	public static final int STYLE_AMBIT = 2003;
+	public static final int STYLE_SMARTISAN_1 = 2001;
+	public static final int STYLE_SMARTISAN_2 = 2002;
+	public static final int STYLE_SMARTISAN_3 = 2003;
+	public static final int STYLE_SMARTISAN_4 = 2004;
+	
+	public static final int STYLE_MARCE = 2005;
+	public static final int STYLE_MATT = 2006;
+	
+	public static final int[] STYLE = new int[]{STYLE_SMARTISAN_1,STYLE_SMARTISAN_2,
+		STYLE_SMARTISAN_3,STYLE_SMARTISAN_4,STYLE_MARCE,STYLE_MATT};
 
 	public IconGridViewAdapter(Context context, int style) {
 		super();
@@ -26,17 +31,23 @@ public class IconGridViewAdapter extends BaseAdapter {
 		mStyle = style;
 		
 		switch(mStyle){
+		case STYLE_SMARTISAN_1:
+			mRes = smartisan_res_1;
+			break;
+		case STYLE_SMARTISAN_2:
+			mRes = smartisan_res_2;
+			break;
+		case STYLE_SMARTISAN_3:
+			mRes = smartisan_res_3;
+			break;
+		case STYLE_SMARTISAN_4:
+			mRes = smartisan_res_4;
+			break;
 		case STYLE_MARCE:
 			mRes = marce_res;
-			L.i("switch 1:" + mStyle);
 			break;
 		case STYLE_MATT:
 			mRes = matt_res;
-			L.i("switch 2:" + mStyle);
-			break;
-		case STYLE_AMBIT:
-			mRes = ambit_res;
-			L.i("switch 3:" + mStyle);
 			break;
 		default:
 			break;
@@ -81,6 +92,42 @@ public class IconGridViewAdapter extends BaseAdapter {
 		ImageView imageView;
 	}
 	
+	public static final int[] smartisan_res_1 = new int[]{R.drawable.smartisan_alipay,
+		R.drawable.smartisan_amazon,R.drawable.smartisan_angrybirds,R.drawable.smartisan_bdmobile,
+		R.drawable.smartisan_bestbuy,R.drawable.smartisan_calculator,R.drawable.smartisan_chrome_icon,
+		R.drawable.smartisan_clock,R.drawable.smartisan_contacts,R.drawable.smartisan_ctrip,
+		R.drawable.smartisan_dolphin,R.drawable.smartisan_dropbox,R.drawable.smartisan_facebook,
+		R.drawable.smartisan_imdb,R.drawable.smartisan_instagram,R.drawable.smartisan_jingdong,
+		R.drawable.smartisan_kuwo_player,R.drawable.smartisan_launcher,R.drawable.smartisan_linkedin,
+		R.drawable.smartisan_meitu};
+	
+	public static final int[] smartisan_res_2 = new int[]{R.drawable.smartisan_xiaomi,
+		R.drawable.smartisan_weather,R.drawable.smartisan_viber,R.drawable.smartisan_tudou,
+		R.drawable.smartisan_tencent_weibo,R.drawable.smartisan_tencent_mm_icon,R.drawable.smartisan_sohu,
+		R.drawable.smartisan_sogou,R.drawable.smartisan_sms,R.drawable.smartisan_sina_weibo,
+		R.drawable.smartisan_settings,R.drawable.smartisan_popcap_pvz,R.drawable.smartisan_play,
+		R.drawable.smartisan_phone,R.drawable.smartisan_note,R.drawable.smartisan_netease,
+		R.drawable.smartisan_mymoney,R.drawable.smartisan_music,R.drawable.smartisan_momo,
+		R.drawable.smartisan_meituan};
+	
+	public static final int[] smartisan_res_3 = new int[]{R.drawable.com_autonavi_minimap_icon,
+		R.drawable.com_baidumap_icon,R.drawable.com_batterydoctor,R.drawable.com_blovestorm_icon,
+		R.drawable.com_changba_icon,R.drawable.com_dictionary_icon,R.drawable.com_estrongs,
+		R.drawable.com_google_android_gm_icon,R.drawable.com_google_android_street_icon,R.drawable.com_google_maps,
+		R.drawable.com_googlequicksearchbox,R.drawable.com_halfbrick_fruitninjafree_icon,R.drawable.com_handsgo_jiakao_android_icon,
+		R.drawable.com_hulu_plus_icon,R.drawable.com_ijinshan_mguard_icon,R.drawable.com_jb_gosms_icon,
+		R.drawable.com_kingsoft_icon,R.drawable.com_merriamwebster_icon,R.drawable.com_nd_android_smarthome_icon,
+		R.drawable.com_netflix_mediaclient_icon};
+	
+	public static final int[] smartisan_res_4 = new int[]{R.drawable.com_zinio,
+		R.drawable.com_zeptolab_gamebase,R.drawable.com_zeptolab,R.drawable.com_yoloho_dayima_icon,
+		R.drawable.com_xinmei365_font_icon,R.drawable.com_wuba_icon,R.drawable.com_wali_walisms_icon,
+		R.drawable.com_uc_icon,R.drawable.com_tumblr_icon,R.drawable.com_tiros,
+		R.drawable.com_tencent_qqpimsecure_icon,R.drawable.com_tencent_qqpim_icon,R.drawable.com_tencent_qqmusic_icon,
+		R.drawable.com_storm_smart_icon,R.drawable.com_skype_rover_icon,R.drawable.com_sketchbookexpress_icon,
+		R.drawable.com_qunar_icon,R.drawable.com_qiyi_video_market_icon,R.drawable.com_pandora_android_icon,
+		R.drawable.com_olivephone_edit_icon};
+	
 	public static final int[] marce_res = new int[]{R.drawable.marce_appstore,R.drawable.marce_calendar,
 		R.drawable.marce_camera,R.drawable.marce_clock,R.drawable.marce_contacts,
 		R.drawable.marce_ipod,R.drawable.marce_itunes,R.drawable.marce_mail,
@@ -96,17 +143,9 @@ public class IconGridViewAdapter extends BaseAdapter {
 		R.drawable.matt_preferences,R.drawable.matt_safari,R.drawable.matt_stocks,
 		R.drawable.matt_winterboard,R.drawable.matt_youtube};
 	
-	public static final int[] ambit_res = new int[]{R.drawable.ambit_calculator,R.drawable.ambit_calendar,
-		R.drawable.ambit_camera,R.drawable.ambit_clock,R.drawable.ambit_cydia,R.drawable.ambit_ifile,
-		R.drawable.ambit_itunes,R.drawable.ambit_mail,R.drawable.ambit_maps,R.drawable.ambit_mxtube,
-		R.drawable.ambit_netnews,R.drawable.ambit_phone,R.drawable.ambit_stack,R.drawable.ambit_things,
-		R.drawable.ambit_twitterrific,R.drawable.ambit_weather,R.drawable.ambit_winterboard,
-		R.drawable.ambit_youtube};
-	
 	/**
 	 * icon styles:
 	 * marce: 20 Ciceronian @ Marcelo Marfil http://findicons.com/pack/2101/ciceronian
 	 * matt: 16 Austerity @ Mattrich http://findicons.com/pack/2206/austerity
-	 * ambit: 18 Aluminum @ AmbitDesigns  http://findicons.com/pack/2130/aluminum
 	 */
 }

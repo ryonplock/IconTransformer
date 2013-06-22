@@ -1,25 +1,15 @@
 package com.android.iconchanger;
 
 import com.android.iconchanger.IconFragment.IconItemClickListener;
-import com.android.iconchanger.indicator.IconPagerAdapter;
 import com.android.iconchanger.utils.L;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-class IconViewPagerAdapter extends FragmentPagerAdapter implements IconPagerAdapter {
+class IconViewPagerAdapter extends FragmentPagerAdapter{
     
-	protected static final int[] STYLE = new int[] {
-    	IconGridViewAdapter.STYLE_MARCE, 
-    	IconGridViewAdapter.STYLE_MATT, 
-    	IconGridViewAdapter.STYLE_AMBIT };
-    
-    protected static final int[] ICONS = new int[] {
-            R.drawable.marce_phone,
-            R.drawable.matt_phone,
-            R.drawable.ambit_phone
-    };
+	protected static final int[] STYLE = IconGridViewAdapter.STYLE;
     
     private IconItemClickListener mIconClick;
     private int mCount = STYLE.length;
@@ -43,11 +33,6 @@ class IconViewPagerAdapter extends FragmentPagerAdapter implements IconPagerAdap
     @Override
     public CharSequence getPageTitle(int position) {
       return "";
-    }
-
-    @Override
-    public int getIconResId(int index) {
-      return ICONS[index % ICONS.length];
     }
 
 }

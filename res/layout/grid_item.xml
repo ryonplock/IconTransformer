@@ -6,6 +6,7 @@
 
     <ImageView
         android:id="@+id/icon"
+        android:padding="1dip"
         android:layout_centerInParent="true"
         android:layout_width="59dip"
         android:layout_height="60dip"
