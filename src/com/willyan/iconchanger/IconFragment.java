@@ -1,6 +1,7 @@
-package com.android.iconchanger;
+package com.willyan.iconchanger;
 
-import com.android.iconchanger.utils.L;
+import com.willyan.iconchanger.R;
+import com.willyan.iconchanger.utils.L;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -1,4 +1,4 @@
-package com.android.iconchanger;
+package com.willyan.iconchanger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,8 +26,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.iconchanger.animation.SwingBottomInAnimationAdapter;
-import com.android.iconchanger.utils.L;
+import com.willyan.iconchanger.R;
+import com.willyan.iconchanger.animation.SwingBottomInAnimationAdapter;
+import com.willyan.iconchanger.utils.L;
 
 public class PickAppActivity extends Activity {
 	

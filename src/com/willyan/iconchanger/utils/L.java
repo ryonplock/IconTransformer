@@ -1,4 +1,4 @@
-package com.android.iconchanger.utils;
+package com.willyan.iconchanger.utils;
 
 import android.util.Log;
 

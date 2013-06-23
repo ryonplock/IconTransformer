@@ -1,9 +1,10 @@
-package com.android.iconchanger;
+package com.willyan.iconchanger;
 
-import com.android.iconchanger.IconFragment.IconItemClickListener;
-import com.android.iconchanger.indicator.UnderlinePageIndicator;
-import com.android.iconchanger.indicator.PageIndicator;
-import com.android.iconchanger.utils.L;
+import com.willyan.iconchanger.R;
+import com.willyan.iconchanger.IconFragment.IconItemClickListener;
+import com.willyan.iconchanger.indicator.PageIndicator;
+import com.willyan.iconchanger.indicator.UnderlinePageIndicator;
+import com.willyan.iconchanger.utils.L;
 
 import android.content.ComponentName;
 import android.content.Intent;

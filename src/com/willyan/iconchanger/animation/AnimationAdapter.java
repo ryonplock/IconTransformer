@@ -1,4 +1,4 @@
-package com.android.iconchanger.animation;
+package com.willyan.iconchanger.animation;
 
 import junit.framework.Assert;
 import android.animation.Animator;
@@ -83,7 +83,6 @@ public abstract class AnimationAdapter extends BaseAdapter {
 		mAnimationStartMillis = -1;
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public final View getView(int position, View convertView, ViewGroup parent) {
 		boolean alreadyStarted = false;
@@ -147,7 +146,6 @@ public abstract class AnimationAdapter extends BaseAdapter {
 		mAnimators.put(view.hashCode(), new AnimationInfo(position, set));
 	}
 
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void hideView(View view) {
 		ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 0);
 		AnimatorSet set = new AnimatorSet();

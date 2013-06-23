@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.iconchanger.indicator;
+package com.willyan.iconchanger.indicator;
 
-import com.android.iconchanger.R;
+import com.willyan.iconchanger.R;
 
 import android.content.Context;
 import android.content.res.Resources;

@@ -1,4 +1,4 @@
-package com.android.iconchanger.animation;
+package com.willyan.iconchanger.animation;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
  * An implementation of the AnimationAdapter class which applies a
  * swing-in-from-bottom-animation to views.
  */
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SwingBottomInAnimationAdapter extends AnimationAdapter {
 	
 	protected static final long DEFAULTANIMATIONDELAYMILLIS = 100;
@@ -44,7 +45,6 @@ public class SwingBottomInAnimationAdapter extends AnimationAdapter {
 		return mAnimationDurationMillis;
 	}
 	
-	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	@Override
 	public Animator[] getAnimators(ViewGroup parent, View view) {
 		Animator animator = ObjectAnimator.ofFloat(view, "translationY", 500, 0);

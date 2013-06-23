@@ -1,7 +1,7 @@
-package com.android.iconchanger;
+package com.willyan.iconchanger;
 
-import com.android.iconchanger.IconFragment.IconItemClickListener;
-import com.android.iconchanger.utils.L;
+import com.willyan.iconchanger.IconFragment.IconItemClickListener;
+import com.willyan.iconchanger.utils.L;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

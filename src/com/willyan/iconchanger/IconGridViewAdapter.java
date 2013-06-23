@@ -1,4 +1,6 @@
-package com.android.iconchanger;
+package com.willyan.iconchanger;
+
+import com.willyan.iconchanger.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;

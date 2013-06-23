@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.android.iconchanger.indicator;
+package com.willyan.iconchanger.indicator;
 
 import android.support.v4.view.ViewPager;
 
