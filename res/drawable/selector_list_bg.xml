@@ -3,7 +3,7 @@
 	android:id="@+id/selector_address">
 	
 	<item android:state_enabled="true" android:state_pressed="false" android:state_selected="false"
-        android:drawable="@drawable/blank" />
+        android:drawable="@drawable/list_bg_blank" />
    <item android:state_enabled="false"
         android:drawable="@drawable/list_bg_sel" />
     <item android:state_pressed="true" 

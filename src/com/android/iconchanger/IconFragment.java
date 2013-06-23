@@ -33,7 +33,7 @@ public final class IconFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-    	View view = inflater.inflate(R.layout.icon_gridview, null);
+    	View view = inflater.inflate(R.layout.viewpager, null);
     	iconsView = (GridView) view.findViewById(R.id.icons_grid);
 		//TODO
     	L.i("onCreateView " + mStyle);

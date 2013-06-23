@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -41,7 +42,8 @@ public class PickAppActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.app_activity);
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.activity_pickapp);
 		listView = (ListView) findViewById(R.id.applist);
 		manager = getPackageManager();
 		
@@ -148,7 +150,7 @@ public class PickAppActivity extends Activity {
 			if (convertView == null) {
 				holder = new Holder();
 				LayoutInflater l = getLayoutInflater();
-				convertView = l.inflate(R.layout.applist_item, null);
+				convertView = l.inflate(R.layout.item_applist, null);
 				holder.appImg = (ImageView) convertView
 						.findViewById(R.id.appImg);
 				holder.appName = (TextView) convertView

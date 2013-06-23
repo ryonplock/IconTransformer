@@ -75,7 +75,7 @@ public class IconGridViewAdapter extends BaseAdapter {
 
 		if (convertView == null) {
 			LayoutInflater inflater = LayoutInflater.from(mComtext);
-			convertView = inflater.inflate(R.layout.grid_item, null);
+			convertView = inflater.inflate(R.layout.item_icongrid, null);
 			holder = new Holder();
 			holder.imageView = (ImageView) convertView.findViewById(R.id.icon);
 			convertView.setTag(holder);
