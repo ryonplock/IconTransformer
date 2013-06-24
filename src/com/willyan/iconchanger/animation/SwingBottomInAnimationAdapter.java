@@ -47,7 +47,7 @@ public class SwingBottomInAnimationAdapter extends AnimationAdapter {
 	
 	@Override
 	public Animator[] getAnimators(ViewGroup parent, View view) {
-		Animator animator = ObjectAnimator.ofFloat(view, "translationY", 500, 0);
+		Animator animator = ObjectAnimator.ofFloat(view, "translationY", 800, 0);
 		return new Animator[] { animator };
 	}
 

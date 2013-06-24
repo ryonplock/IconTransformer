@@ -156,8 +156,6 @@ public class PickAppActivity extends Activity {
 						.findViewById(R.id.appImg);
 				holder.appName = (TextView) convertView
 						.findViewById(R.id.appName);
-				holder.ckb = (CheckBox) convertView
-						.findViewById(R.id.ckb_music);
 				convertView.setTag(holder);
 			} else {
 				holder = (Holder) convertView.getTag();
@@ -170,7 +168,6 @@ public class PickAppActivity extends Activity {
 				holder.appImg.setImageResource(R.drawable.ic_launcher);
 			}
 			
-			holder.ckb.setChecked(false);
 			return convertView;
 		}
 	}
@@ -179,7 +176,7 @@ public class PickAppActivity extends Activity {
 	class Holder {
 		public ImageView appImg;
 		public TextView appName;
-		public CheckBox ckb;
+		public ImageView next;
 	}
 	
 	class AppInfo {

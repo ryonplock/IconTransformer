@@ -24,16 +24,12 @@
             android:textColor="@color/white_snow"
             android:textSize="18sp" />
         
-        <CheckBox
-            android:id="@+id/ckb_music"
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:paddingRight="20dp"
-            android:clickable="true"
-            android:focusable="false"
-            android:enabled="false"
-            android:textSize="14sp" />
+            android:src="@drawable/ic_next"/>
 
     </RelativeLayout>
 

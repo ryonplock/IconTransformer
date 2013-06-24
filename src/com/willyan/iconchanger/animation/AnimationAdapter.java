@@ -1,5 +1,7 @@
 package com.willyan.iconchanger.animation;
 
+import com.willyan.iconchanger.utils.L;
+
 import junit.framework.Assert;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -126,7 +128,7 @@ public abstract class AnimationAdapter extends BaseAdapter {
 			mAnimationStartMillis = System.currentTimeMillis();
 		}
 
-		hideView(view);
+		//hideView(view);
 
 		Animator[] childAnimators;
 		if (mDecoratedBaseAdapter instanceof AnimationAdapter) {
