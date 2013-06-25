@@ -3,11 +3,9 @@ package com.willyan.iconchanger.animation;
 import com.willyan.iconchanger.utils.L;
 
 import junit.framework.Assert;
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.annotation.TargetApi;
-import android.os.Build;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ import android.widget.ListView;
  * views when they are first shown. The Animators applied include the animations
  * specified in getAnimators(ViewGroup, View), plus an alpha transition.
  */
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public abstract class AnimationAdapter extends BaseAdapter {
 
 	protected static final long DEFAULTANIMATIONDELAYMILLIS = 100;
