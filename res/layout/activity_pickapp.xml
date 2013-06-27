@@ -2,11 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/ic_solid_dark"
     tools:context=".PickAppActivity" >
+    
+    <include android:id="@+id/titlebar"
+        layout="@layout/activity_header"/>
     
     <ListView android:id="@+id/applist"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titlebar">
     </ListView>
 
 
