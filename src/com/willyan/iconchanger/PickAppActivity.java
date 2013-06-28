@@ -27,7 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.willyan.iconchanger.R;
-import com.willyan.iconchanger.animation.SwingBottomInAnimationAdapter;
+import com.willyan.iconchanger.animation.SwingInAnimationAdapter;
 import com.willyan.iconchanger.utils.L;
 
 public class PickAppActivity extends Activity {
@@ -111,7 +111,7 @@ public class PickAppActivity extends Activity {
 			case STOP_LOADING:
 				pdialog.cancel();
 				mAdapter = new AppListAdapter();
-				SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
+				SwingInAnimationAdapter swingBottomInAnimationAdapter = new SwingInAnimationAdapter(mAdapter);
 				swingBottomInAnimationAdapter.setListView(listView);
 				listView.setAdapter(swingBottomInAnimationAdapter);
 				break;

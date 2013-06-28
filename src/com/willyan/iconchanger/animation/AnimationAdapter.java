@@ -125,7 +125,7 @@ public abstract class AnimationAdapter extends BaseAdapter {
 			mAnimationStartMillis = System.currentTimeMillis();
 		}
 
-		//hideView(view);
+		hideView(view);
 
 		Animator[] childAnimators;
 		if (mDecoratedBaseAdapter instanceof AnimationAdapter) {
