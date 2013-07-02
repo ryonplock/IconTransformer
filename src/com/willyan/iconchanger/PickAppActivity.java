@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -14,27 +13,24 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.willyan.iconchanger.R;
 import com.willyan.iconchanger.animation.SwingInAnimationAdapter;
 import com.willyan.iconchanger.utils.L;
 
 public class PickAppActivity extends Activity {
 	
 	private ListView listView;
+	private RelativeLayout progressBar;
 	private ArrayList<AppInfo> list = new ArrayList<AppInfo>();
-	private ProgressDialog pdialog;
 	private AppListAdapter mAdapter;
 	private PackageManager manager;
 	private final static int START_LOADING = 0x01;
@@ -44,9 +40,8 @@ public class PickAppActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pickapp);
-		listView = (ListView) findViewById(R.id.applist);
 		manager = getPackageManager();
-		
+		listView = (ListView) findViewById(R.id.applist);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
@@ -65,6 +60,8 @@ public class PickAppActivity extends Activity {
 //				AppListActivity.this.finish();
 			}
 		});
+		progressBar = (RelativeLayout) findViewById(R.id.progress_bar);
+		progressBar.setVisibility(View.INVISIBLE);
 		loadAppList();
 	}
 	
@@ -103,17 +100,15 @@ public class PickAppActivity extends Activity {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case START_LOADING:
-				pdialog = new ProgressDialog(PickAppActivity.this);
-				pdialog.setCanceledOnTouchOutside(false);
-				pdialog.setMessage(getResources().getString(R.string.loading_app));
-				pdialog.show();
+				progressBar.setVisibility(View.VISIBLE);
 				break;
 			case STOP_LOADING:
-				pdialog.cancel();
+				progressBar.setVisibility(View.INVISIBLE);
 				mAdapter = new AppListAdapter();
-				SwingInAnimationAdapter swingBottomInAnimationAdapter = new SwingInAnimationAdapter(mAdapter);
-				swingBottomInAnimationAdapter.setListView(listView);
-				listView.setAdapter(swingBottomInAnimationAdapter);
+//				SwingInAnimationAdapter swingBottomInAnimationAdapter = new SwingInAnimationAdapter(mAdapter);
+//				swingBottomInAnimationAdapter.setListView(listView);
+//				listView.setAdapter(swingBottomInAnimationAdapter);
+				listView.setAdapter(mAdapter);
 				break;
 			}
 		}

@@ -33,6 +33,7 @@ public abstract class AnimationAdapter extends BaseAdapter {
 	//
 	protected final BaseAdapter mDecoratedBaseAdapter;
 	private ListView mListView;
+	private boolean test;
 
 	public AnimationAdapter(BaseAdapter baseAdapter) {
 		
@@ -85,6 +86,8 @@ public abstract class AnimationAdapter extends BaseAdapter {
 	@Override
 	public final View getView(int position, View convertView, ViewGroup parent) {
 		boolean alreadyStarted = false;
+		
+		L.e("1 getView position:" + position);
 
 		if (!mHasParentAnimationAdapter) {
 			Assert.assertNotNull(
@@ -92,10 +95,13 @@ public abstract class AnimationAdapter extends BaseAdapter {
 					getListView());
 
 			if (convertView != null) {
+				L.e("2 getView convertView!= null: " + position);
 				int hashCode = convertView.hashCode();
 				AnimationInfo animationInfo = mAnimators.get(hashCode);
 				if (animationInfo != null) {
+					L.e("3 getView animationInfo != null " + position);
 					if (animationInfo.position != position) {
+						L.e("4 getView animationInfo.position != position: " + animationInfo.position + "!=" +position);
 						animationInfo.animator.end();
 						mAnimators.remove(hashCode);
 					} else {
@@ -114,6 +120,7 @@ public abstract class AnimationAdapter extends BaseAdapter {
 	}
 
 	private void animateViewIfNecessary(int position, View view, ViewGroup parent) {
+		L.e("5 animateViewIfNecessary position ? mLastAnimatedPosition " + position + " ? " + mLastAnimatedPosition);
 		if (position > mLastAnimatedPosition && !mHasParentAnimationAdapter) {
 			animateView(position, parent, view);
 			mLastAnimatedPosition = position;
