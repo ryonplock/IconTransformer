@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,6 +30,7 @@ import com.willyan.iconchanger.utils.L;
 public class PickAppActivity extends Activity {
 	
 	private ListView listView;
+//	private TextView title;
 	private RelativeLayout progressBar;
 	private ArrayList<AppInfo> list = new ArrayList<AppInfo>();
 	private AppListAdapter mAdapter;
@@ -60,6 +62,9 @@ public class PickAppActivity extends Activity {
 //				AppListActivity.this.finish();
 			}
 		});
+//		title = (TextView) findViewById(R.id.title);
+//		Typeface font = Typeface.createFromAsset(getAssets(), "Segoe.ttf");
+//		title.setTypeface(font);
 		progressBar = (RelativeLayout) findViewById(R.id.progress_bar);
 		progressBar.setVisibility(View.INVISIBLE);
 		loadAppList();
