@@ -24,6 +24,8 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.willyan.iconchanger.animation.SwingInAnimationAdapter;
 import com.willyan.iconchanger.utils.L;
 
@@ -58,8 +60,6 @@ public class PickAppActivity extends Activity {
 				intent.putExtra("activityName", activityName);
 				intent.setClass(PickAppActivity.this, PickIconActivity.class);
 				startActivity(intent);
-//				AppListActivity.this.setResult(RESULT_OK, in);
-//				AppListActivity.this.finish();
 			}
 		});
 //		title = (TextView) findViewById(R.id.title);
@@ -108,7 +108,7 @@ public class PickAppActivity extends Activity {
 				progressBar.setVisibility(View.VISIBLE);
 				break;
 			case STOP_LOADING:
-				progressBar.setVisibility(View.INVISIBLE);
+				hideView(progressBar);
 				mAdapter = new AppListAdapter();
 //				SwingInAnimationAdapter swingBottomInAnimationAdapter = new SwingInAnimationAdapter(mAdapter);
 //				swingBottomInAnimationAdapter.setListView(listView);
@@ -162,6 +162,18 @@ public class PickAppActivity extends Activity {
 			
 			return convertView;
 		}
+	}
+	
+	private void hideView(View view) {
+		ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 0);
+		AnimatorSet set = new AnimatorSet();
+		set.play(animator);
+		set.setDuration(500);
+		set.start();
+	}
+	
+	public void onMenuClicked(View view){
+		//TODO 
 	}
 
 
