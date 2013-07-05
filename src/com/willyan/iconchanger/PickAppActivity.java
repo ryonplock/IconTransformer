@@ -110,10 +110,10 @@ public class PickAppActivity extends Activity {
 			case STOP_LOADING:
 				hideView(progressBar);
 				mAdapter = new AppListAdapter();
-//				SwingInAnimationAdapter swingBottomInAnimationAdapter = new SwingInAnimationAdapter(mAdapter);
-//				swingBottomInAnimationAdapter.setListView(listView);
-//				listView.setAdapter(swingBottomInAnimationAdapter);
-				listView.setAdapter(mAdapter);
+//				listView.setAdapter(mAdapter);
+				SwingInAnimationAdapter swingBottomInAnimationAdapter = new SwingInAnimationAdapter(mAdapter);
+				swingBottomInAnimationAdapter.setListView(listView);
+				listView.setAdapter(swingBottomInAnimationAdapter);
 				break;
 			}
 		}
@@ -168,7 +168,7 @@ public class PickAppActivity extends Activity {
 		ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 0);
 		AnimatorSet set = new AnimatorSet();
 		set.play(animator);
-		set.setDuration(500);
+		set.setDuration(300);
 		set.start();
 	}
 	
