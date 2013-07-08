@@ -115,6 +115,8 @@ public class PickAppActivity extends Activity {
 				swingBottomInAnimationAdapter.setListView(listView);
 				listView.setAdapter(swingBottomInAnimationAdapter);
 				break;
+			default:
+				break;
 			}
 		}
 	};
@@ -168,7 +170,7 @@ public class PickAppActivity extends Activity {
 		ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 0);
 		AnimatorSet set = new AnimatorSet();
 		set.play(animator);
-		set.setDuration(300);
+		set.setDuration(200);
 		set.start();
 	}
 	
@@ -180,7 +182,6 @@ public class PickAppActivity extends Activity {
 	class Holder {
 		public ImageView appImg;
 		public TextView appName;
-		public ImageView next;
 	}
 	
 	class AppInfo {

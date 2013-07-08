@@ -50,6 +50,10 @@ public abstract class AnimationAdapter extends BaseAdapter {
 	
 	public void setListView(ListView listView) {
 		mListView = listView;
+		
+		if (mDecoratedBaseAdapter instanceof AnimationAdapter) {
+			((AnimationAdapter) mDecoratedBaseAdapter).setListView(listView);
+		}
 	}
 	
 	public ListView getListView() {
