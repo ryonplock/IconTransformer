@@ -26,20 +26,20 @@ import com.nineoldandroids.animation.ObjectAnimator;
  * An implementation of the AnimationAdapter class which applies a
  * swing-in-from-bottom-animation to views.
  */
-public class SwingBottomInAnimationAdapter extends SingleAnimationAdapter {
+public class SwingInAnimationAdapter extends SingleAnimationAdapter {
 
 	private final long mAnimationDelayMillis;
 	private final long mAnimationDurationMillis;
 
-	public SwingBottomInAnimationAdapter(BaseAdapter baseAdapter) {
+	public SwingInAnimationAdapter(BaseAdapter baseAdapter) {
 		this(baseAdapter, DEFAULTANIMATIONDELAYMILLIS, DEFAULTANIMATIONDURATIONMILLIS);
 	}
 
-	public SwingBottomInAnimationAdapter(BaseAdapter baseAdapter, long animationDelayMillis) {
+	public SwingInAnimationAdapter(BaseAdapter baseAdapter, long animationDelayMillis) {
 		this(baseAdapter, animationDelayMillis, DEFAULTANIMATIONDURATIONMILLIS);
 	}
 
-	public SwingBottomInAnimationAdapter(BaseAdapter baseAdapter, long animationDelayMillis, long animationDurationMillis) {
+	public SwingInAnimationAdapter(BaseAdapter baseAdapter, long animationDelayMillis, long animationDurationMillis) {
 		super(baseAdapter);
 		mAnimationDelayMillis = animationDelayMillis;
 		mAnimationDurationMillis = animationDurationMillis;

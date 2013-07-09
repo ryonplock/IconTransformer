@@ -25,7 +25,7 @@ import android.widget.TextView;
 
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.willyan.iconchanger.animation.SwingBottomInAnimationAdapter;
+import com.willyan.iconchanger.animation.AlphaInAnimationAdapter;
 import com.willyan.iconchanger.utils.L;
 
 public class PickAppActivity extends Activity {
@@ -106,9 +106,9 @@ public class PickAppActivity extends Activity {
 				hideView(progressBar);
 				mAdapter = new ListAdapter();
 //				listView.setAdapter(mAdapter);
-				SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
-				swingBottomInAnimationAdapter.setAbsListView(appList);
-				appList.setAdapter(swingBottomInAnimationAdapter);
+				AlphaInAnimationAdapter animationAdapter = new AlphaInAnimationAdapter(mAdapter);
+				animationAdapter.setAbsListView(appList);
+				appList.setAdapter(animationAdapter);
 				break;
 			default:
 				break;
