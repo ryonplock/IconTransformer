@@ -8,7 +8,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,33 +25,31 @@ import android.widget.TextView;
 
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.willyan.iconchanger.animation.SwingInAnimationAdapter;
+import com.willyan.iconchanger.animation.SwingBottomInAnimationAdapter;
 import com.willyan.iconchanger.utils.L;
 
 public class PickAppActivity extends Activity {
 	
-	private ListView listView;
-//	private TextView title;
+	private ListView appList;
 	private RelativeLayout progressBar;
-	private ArrayList<AppInfo> list = new ArrayList<AppInfo>();
-	private AppListAdapter mAdapter;
+	private ArrayList<AppInfo> infoList = new ArrayList<AppInfo>();
+	private BaseAdapter mAdapter;
 	private PackageManager manager;
 	private final static int START_LOADING = 0x01;
 	private final static int STOP_LOADING = 0x02;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_pickapp);
-		manager = getPackageManager();
-		listView = (ListView) findViewById(R.id.applist);
-		listView.setOnItemClickListener(new OnItemClickListener() {
+		super.onCreate(savedInstanceState);
+		appList = (ListView) findViewById(R.id.applist);
+		appList.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				String appName = list.get(position).appName;
-				String packageName = list.get(position).packageName;
-				String activityName = list.get(position).activityName;
+				String appName = infoList.get(position).appName;
+				String packageName = infoList.get(position).packageName;
+				String activityName = infoList.get(position).activityName;
 				L.i("APP "  + appName + " " + packageName + " " + activityName);
 				Intent intent = new Intent();
 				intent.putExtra("appName", appName);
@@ -62,9 +59,6 @@ public class PickAppActivity extends Activity {
 				startActivity(intent);
 			}
 		});
-//		title = (TextView) findViewById(R.id.title);
-//		Typeface font = Typeface.createFromAsset(getAssets(), "Segoe.ttf");
-//		title.setTypeface(font);
 		progressBar = (RelativeLayout) findViewById(R.id.progress_bar);
 		progressBar.setVisibility(View.INVISIBLE);
 		loadAppList();
@@ -77,9 +71,10 @@ public class PickAppActivity extends Activity {
 		new Thread() {
 			public void run() {
 				handler.sendEmptyMessage(START_LOADING);
-				list.clear();
+				infoList.clear();
 				Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
 				mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+				manager = getPackageManager();
 				final List<ResolveInfo> apps = manager.queryIntentActivities(
 						mainIntent, 0);
 				Collections.sort(apps, new ResolveInfo.DisplayNameComparator(manager));
@@ -92,7 +87,7 @@ public class PickAppActivity extends Activity {
 						appInfo.icon = info.activityInfo.loadIcon(manager);
 						appInfo.packageName = info.activityInfo.packageName;
 						appInfo.activityName = info.activityInfo.name;
-						list.add(appInfo);
+						infoList.add(appInfo);
 					}// end for
 				}
 				handler.sendEmptyMessage(STOP_LOADING);
@@ -109,11 +104,11 @@ public class PickAppActivity extends Activity {
 				break;
 			case STOP_LOADING:
 				hideView(progressBar);
-				mAdapter = new AppListAdapter();
+				mAdapter = new ListAdapter();
 //				listView.setAdapter(mAdapter);
-				SwingInAnimationAdapter swingBottomInAnimationAdapter = new SwingInAnimationAdapter(mAdapter);
-				swingBottomInAnimationAdapter.setListView(listView);
-				listView.setAdapter(swingBottomInAnimationAdapter);
+				SwingBottomInAnimationAdapter swingBottomInAnimationAdapter = new SwingBottomInAnimationAdapter(mAdapter);
+				swingBottomInAnimationAdapter.setAbsListView(appList);
+				appList.setAdapter(swingBottomInAnimationAdapter);
 				break;
 			default:
 				break;
@@ -122,20 +117,23 @@ public class PickAppActivity extends Activity {
 	};
 	
 	/** ListView Adapter */
-	public class AppListAdapter extends BaseAdapter {
+	private class ListAdapter extends BaseAdapter{
 
 		@Override
 		public int getCount() {
-			return list.size();
+			// TODO Auto-generated method stub
+			return infoList.size();
 		}
 
 		@Override
 		public Object getItem(int position) {
-			return list.get(position);
+			// TODO Auto-generated method stub
+			return infoList.get(position);
 		}
 
 		@Override
 		public long getItemId(int position) {
+			// TODO Auto-generated method stub
 			return position;
 		}
 
@@ -154,16 +152,16 @@ public class PickAppActivity extends Activity {
 			} else {
 				holder = (Holder) convertView.getTag();
 			}
-			AppInfo fb = list.get(position);
+			AppInfo fb = infoList.get(position);
 			holder.appName.setText(fb.appName);
 			if (fb.icon != null) {
 				holder.appImg.setImageDrawable(fb.icon);
 			} else {
 				holder.appImg.setImageResource(R.drawable.ic_launcher);
 			}
-			
 			return convertView;
 		}
+		
 	}
 	
 	private void hideView(View view) {
@@ -177,7 +175,6 @@ public class PickAppActivity extends Activity {
 	public void onMenuClicked(View view){
 		//TODO 
 	}
-
 
 	class Holder {
 		public ImageView appImg;

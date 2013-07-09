@@ -1,239 +1,217 @@
+/*
+ * Copyright 2013 Niek Haarman
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.willyan.iconchanger.animation;
 
-import com.willyan.iconchanger.utils.L;
-
-import junit.framework.Assert;
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ObjectAnimator;
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.GridView;
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 
 /**
  * A BaseAdapterDecorator class which applies multiple Animators at once to
  * views when they are first shown. The Animators applied include the animations
  * specified in getAnimators(ViewGroup, View), plus an alpha transition.
  */
-public abstract class AnimationAdapter extends BaseAdapter {
+public abstract class AnimationAdapter extends BaseAdapterDecorator {
 
-	protected static final long DEFAULTANIMATIONDELAYMILLIS = 100;
-	protected static final long DEFAULTANIMATIONDURATIONMILLIS = 300;
+    protected static final long DEFAULTANIMATIONDELAYMILLIS = 100;
+    protected static final long DEFAULTANIMATIONDURATIONMILLIS = 300;
+    private static final long INITIALDELAYMILLIS = 150;
+    private SparseArray<AnimationInfo> mAnimators;
+    private long mAnimationStartMillis;
+    private int mLastAnimatedPosition;
+    private boolean mHasParentAnimationAdapter;
 
-	private static final long INITIALDELAYMILLIS = 150;
+    public AnimationAdapter(BaseAdapter baseAdapter) {
+        super(baseAdapter);
+        mAnimators = new SparseArray<AnimationInfo>();
 
-	private SparseArray<AnimationInfo> mAnimators;
-	private long mAnimationStartMillis;
-	private int mLastAnimatedPosition;
+        mAnimationStartMillis = -1;
+        mLastAnimatedPosition = -1;
 
-	private boolean mHasParentAnimationAdapter;
-	
-	//
-	protected final BaseAdapter mDecoratedBaseAdapter;
-	private ListView mListView;
-	private boolean test;
+        if (baseAdapter instanceof AnimationAdapter) {
+            ((AnimationAdapter) baseAdapter).setHasParentAnimationAdapter(true);
+        }
+    }
 
-	public AnimationAdapter(BaseAdapter baseAdapter) {
-		
-		mDecoratedBaseAdapter = baseAdapter;
-		mAnimators = new SparseArray<AnimationInfo>();
+    /**
+     * Call this method to reset animation status on all views. The next time
+     * notifyDataSetChanged() is called on the base adapter, all views will
+     * animate again.
+     */
+    public void reset() {
+        mAnimators.clear();
+        mLastAnimatedPosition = -1;
+        mAnimationStartMillis = -1;
 
-		mAnimationStartMillis = -1;
-		mLastAnimatedPosition = -1;
+        if (getDecoratedBaseAdapter() instanceof AnimationAdapter) {
+            ((AnimationAdapter) getDecoratedBaseAdapter()).reset();
+        }
+    }
 
-		if (baseAdapter instanceof AnimationAdapter) {
-			((AnimationAdapter) baseAdapter).setHasParentAnimationAdapter(true);
-		}
-	}
-	
-	public void setListView(ListView listView) {
-		mListView = listView;
-		
-		if (mDecoratedBaseAdapter instanceof AnimationAdapter) {
-			((AnimationAdapter) mDecoratedBaseAdapter).setListView(listView);
-		}
-	}
-	
-	public ListView getListView() {
-		return mListView;
-	}
+    @Override
+    public final View getView(int position, View convertView, ViewGroup parent) {
+        boolean alreadyStarted = false;
 
-	@Override
-	public int getCount() {
-		return mDecoratedBaseAdapter.getCount();
-	}
+        if (!mHasParentAnimationAdapter) {
+            if (getAbsListView() == null) {
+                throw new IllegalStateException("Call setListView() on this AnimationAdapter before setAdapter()!");
+            }
 
-	@Override
-	public Object getItem(int position) {
-		return mDecoratedBaseAdapter.getItem(position);
-	}
+            if (convertView != null) {
+                int hashCode = convertView.hashCode();
+                AnimationInfo animationInfo = mAnimators.get(hashCode);
+                if (animationInfo != null) {
+                    if (animationInfo.position != position) {
+                        animationInfo.animator.end();
+                        mAnimators.remove(hashCode);
+                    } else {
+                        alreadyStarted = true;
+                    }
+                }
+            }
+        }
 
-	@Override
-	public long getItemId(int position) {
-		return mDecoratedBaseAdapter.getItemId(position);
-	}
+        View itemView = super.getView(position, convertView, parent);
 
+        if (!mHasParentAnimationAdapter && !alreadyStarted) {
+            animateViewIfNecessary(position, itemView, parent);
+        }
+        return itemView;
+    }
 
-	/**
-	 * Call this method to reset animation status on all views. The next time
-	 * notifyDataSetChanged() is called on the base adapter, all views will
-	 * animate again.
-	 */
-	public void reset() {
-		mAnimators.clear();
-		mLastAnimatedPosition = -1;
-		mAnimationStartMillis = -1;
-	}
+    private void animateViewIfNecessary(int position, View view, ViewGroup parent) {
+        if (position > mLastAnimatedPosition && !mHasParentAnimationAdapter) {
+            animateView(position, parent, view);
+            mLastAnimatedPosition = position;
+        }
+    }
 
-	@Override
-	public final View getView(int position, View convertView, ViewGroup parent) {
-		boolean alreadyStarted = false;
-		
-		L.e("1 getView position:" + position);
+    private void animateView(int position, ViewGroup parent, View view) {
+        if (mAnimationStartMillis == -1) {
+            mAnimationStartMillis = System.currentTimeMillis();
+        }
 
-		if (!mHasParentAnimationAdapter) {
-			Assert.assertNotNull(
-					"Call setListView() on this AnimationAdapter before setAdapter()!",
-					getListView());
+        hideView(view);
 
-			if (convertView != null) {
-				L.e("2 getView convertView!= null: " + position);
-				int hashCode = convertView.hashCode();
-				AnimationInfo animationInfo = mAnimators.get(hashCode);
-				if (animationInfo != null) {
-					L.e("3 getView animationInfo != null " + position);
-					if (animationInfo.position != position) {
-						L.e("4 getView animationInfo.position != position: " + animationInfo.position + "!=" +position);
-						animationInfo.animator.end();
-						mAnimators.remove(hashCode);
-					} else {
-						alreadyStarted = true;
-					}
-				}
-			}
-		}
+        Animator[] childAnimators;
+        if (mDecoratedBaseAdapter instanceof AnimationAdapter) {
+            childAnimators = ((AnimationAdapter) mDecoratedBaseAdapter).getAnimators(parent, view);
+        } else {
+            childAnimators = new Animator[0];
+        }
+        Animator[] animators = getAnimators(parent, view);
+        Animator alphaAnimator = ObjectAnimator.ofFloat(view, "alpha", 0, 1);
 
-		View itemView = mDecoratedBaseAdapter.getView(position, convertView, parent);
+        AnimatorSet set = new AnimatorSet();
+        set.playTogether(concatAnimators(childAnimators, animators, alphaAnimator));
+        set.setStartDelay(calculateAnimationDelay());
+        set.setDuration(getAnimationDurationMillis());
+        set.start();
 
-		if (!mHasParentAnimationAdapter && !alreadyStarted) {
-			animateViewIfNecessary(position, itemView, parent);
-		}
-		return itemView;
-	}
+        mAnimators.put(view.hashCode(), new AnimationInfo(position, set));
+    }
 
-	private void animateViewIfNecessary(int position, View view, ViewGroup parent) {
-		L.e("5 animateViewIfNecessary position ? mLastAnimatedPosition " + position + " ? " + mLastAnimatedPosition);
-		if (position > mLastAnimatedPosition && !mHasParentAnimationAdapter) {
-			animateView(position, parent, view);
-			mLastAnimatedPosition = position;
-		}
-	}
+    private void hideView(View view) {
+        ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 0);
+        AnimatorSet set = new AnimatorSet();
+        set.play(animator);
+        set.setDuration(0);
+        set.start();
+    }
 
-	private void animateView(int position, ViewGroup parent, View view) {
-		if (mAnimationStartMillis == -1) {
-			mAnimationStartMillis = System.currentTimeMillis();
-		}
+    private Animator[] concatAnimators(Animator[] childAnimators, Animator[] animators,
+                                       Animator alphaAnimator) {
+        Animator[] allAnimators = new Animator[childAnimators.length + animators.length + 1];
+        int i;
 
-		hideView(view);
+        for (i = 0; i < animators.length; ++i) {
+            allAnimators[i] = animators[i];
+        }
 
-		Animator[] childAnimators;
-		if (mDecoratedBaseAdapter instanceof AnimationAdapter) {
-			childAnimators = ((AnimationAdapter) mDecoratedBaseAdapter).getAnimators(parent, view);
-		} else {
-			childAnimators = new Animator[0];
-		}
-		Animator[] animators = getAnimators(parent, view);
-		Animator alphaAnimator = ObjectAnimator.ofFloat(view, "alpha", 0, 1);
+        for (int j = 0; j < childAnimators.length; ++j) {
+            allAnimators[i] = childAnimators[j];
+            ++i;
+        }
 
-		AnimatorSet set = new AnimatorSet();
-		set.playTogether(concatAnimators(childAnimators, animators, alphaAnimator));
-		set.setStartDelay(calculateAnimationDelay());
-		set.setDuration(getAnimationDurationMillis());
-		set.start();
+        allAnimators[allAnimators.length - 1] = alphaAnimator;
+        return allAnimators;
+    }
 
-		mAnimators.put(view.hashCode(), new AnimationInfo(position, set));
-	}
-
-	private void hideView(View view) {
-		ObjectAnimator animator = ObjectAnimator.ofFloat(view, "alpha", 0);
-		AnimatorSet set = new AnimatorSet();
-		set.play(animator);
-		set.setDuration(0);
-		set.start();
-	}
-
-	private Animator[] concatAnimators(Animator[] childAnimators, Animator[] animators,
-			Animator alphaAnimator) {
-		Animator[] allAnimators = new Animator[childAnimators.length + animators.length + 1];
-		int i;
-
-		for (i = 0; i < animators.length; ++i) {
-			allAnimators[i] = animators[i];
-		}
-
-		for (int j = 0; j < childAnimators.length; ++j) {
-			allAnimators[i] = childAnimators[j];
-			++i;
-		}
-
-		allAnimators[allAnimators.length - 1] = alphaAnimator;
-		return allAnimators;
-	}
-
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private long calculateAnimationDelay() {
-		long delay;
-		int numberOfItems = getListView().getLastVisiblePosition()
-				- getListView().getFirstVisiblePosition();
-		if (numberOfItems + 1 < mLastAnimatedPosition) {
-			delay = getAnimationDelayMillis();
-		} else {
-			long delaySinceStart = (mLastAnimatedPosition + 1) * getAnimationDelayMillis();
-			delay = mAnimationStartMillis + INITIALDELAYMILLIS + delaySinceStart
-					- System.currentTimeMillis();
-		}
-		return Math.max(0, delay);
-	}
+        long delay;
+        int numberOfItems = getAbsListView().getLastVisiblePosition()
+                - getAbsListView().getFirstVisiblePosition();
+        if (numberOfItems + 1 < mLastAnimatedPosition) {
+            delay = getAnimationDelayMillis();
 
-	/**
-	 * Set whether this AnimationAdapter is encapsulated by another
-	 * AnimationAdapter. When this is set to true, this AnimationAdapter does
-	 * not apply any animations to the views. Should not be set explicitly, the
-	 * AnimationAdapter class manages this by itself.
-	 */
-	public void setHasParentAnimationAdapter(boolean hasParentAnimationAdapter) {
-		mHasParentAnimationAdapter = hasParentAnimationAdapter;
-	}
+            if (getAbsListView() instanceof GridView) {
+                delay += getAnimationDelayMillis() * ((mLastAnimatedPosition + 1) % ((GridView) getAbsListView()).getNumColumns());
+            }
+        } else {
+            long delaySinceStart = (mLastAnimatedPosition + 1) * getAnimationDelayMillis();
+            delay = mAnimationStartMillis + INITIALDELAYMILLIS + delaySinceStart
+                    - System.currentTimeMillis();
+        }
+        return Math.max(0, delay);
+    }
 
-	/**
-	 * Get the delay in milliseconds before an animation of a view should start.
-	 */
-	protected abstract long getAnimationDelayMillis();
+    /**
+     * Set whether this AnimationAdapter is encapsulated by another
+     * AnimationAdapter. When this is set to true, this AnimationAdapter does
+     * not apply any animations to the views. Should not be set explicitly, the
+     * AnimationAdapter class manages this by itself.
+     */
+    public void setHasParentAnimationAdapter(boolean hasParentAnimationAdapter) {
+        mHasParentAnimationAdapter = hasParentAnimationAdapter;
+    }
 
-	/**
-	 * Get the duration of the animation in milliseconds.
-	 */
-	protected abstract long getAnimationDurationMillis();
+    /**
+     * Get the delay in milliseconds before an animation of a view should start.
+     */
+    protected abstract long getAnimationDelayMillis();
 
-	/**
-	 * Get the Animators to apply to the views. In addition to the returned
-	 * Animators, an alpha transition will be applied to the view.
-	 * 
-	 * @param parent
-	 *            The parent of the view
-	 * @param view
-	 *            The view that will be animated, as retrieved by getView()
-	 */
-	public abstract Animator[] getAnimators(ViewGroup parent, View view);
+    /**
+     * Get the duration of the animation in milliseconds.
+     */
+    protected abstract long getAnimationDurationMillis();
 
-	private class AnimationInfo {
-		public int position;
-		public Animator animator;
+    /**
+     * Get the Animators to apply to the views. In addition to the returned
+     * Animators, an alpha transition will be applied to the view.
+     *
+     * @param parent The parent of the view
+     * @param view   The view that will be animated, as retrieved by getView()
+     */
+    public abstract Animator[] getAnimators(ViewGroup parent, View view);
 
-		public AnimationInfo(int position, Animator animator) {
-			this.position = position;
-			this.animator = animator;
-		}
-	}
+    private class AnimationInfo {
+        public int position;
+        public Animator animator;
+
+        public AnimationInfo(int position, Animator animator) {
+            this.position = position;
+            this.animator = animator;
+        }
+    }
 }
