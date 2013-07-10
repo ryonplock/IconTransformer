@@ -144,10 +144,4 @@ public class IconGridViewAdapter extends BaseAdapter {
 		R.drawable.matt_mobiletimer,R.drawable.matt_notes,R.drawable.matt_phone,
 		R.drawable.matt_preferences,R.drawable.matt_safari,R.drawable.matt_stocks,
 		R.drawable.matt_winterboard,R.drawable.matt_youtube};
-	
-	/**
-	 * icon styles:
-	 * marce: 20 Ciceronian @ Marcelo Marfil http://findicons.com/pack/2101/ciceronian
-	 * matt: 16 Austerity @ Mattrich http://findicons.com/pack/2206/austerity
-	 */
 }
