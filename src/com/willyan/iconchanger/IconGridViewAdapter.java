@@ -21,11 +21,13 @@ public class IconGridViewAdapter extends BaseAdapter {
 	public static final int STYLE_SMARTISAN_3 = 2003;
 	public static final int STYLE_SMARTISAN_4 = 2004;
 	
-	public static final int STYLE_MARCE = 2005;
-	public static final int STYLE_MATT = 2006;
+	public static final int STYLE_IPHONE = 2005;
+	public static final int STYLE_COLD_1 = 2006;
+	public static final int STYLE_COLD_2 = 2007;
+	public static final int STYLE_COLD_3 = 2008;
 	
 	public static final int[] STYLE = new int[]{STYLE_SMARTISAN_1,STYLE_SMARTISAN_2,
-		STYLE_SMARTISAN_3,STYLE_SMARTISAN_4,STYLE_MARCE,STYLE_MATT};
+		STYLE_SMARTISAN_3,STYLE_SMARTISAN_4,STYLE_IPHONE,STYLE_COLD_1/*,STYLE_COLD_2,STYLE_COLD_3*/};
 
 	public IconGridViewAdapter(Context context, int style) {
 		super();
@@ -45,11 +47,11 @@ public class IconGridViewAdapter extends BaseAdapter {
 		case STYLE_SMARTISAN_4:
 			mRes = smartisan_res_4;
 			break;
-		case STYLE_MARCE:
-			mRes = marce_res;
+		case STYLE_IPHONE:
+			mRes = iphone_res;
 			break;
-		case STYLE_MATT:
-			mRes = matt_res;
+		case STYLE_COLD_1:
+			mRes = cold_res_1;
 			break;
 		default:
 			break;
@@ -130,18 +132,19 @@ public class IconGridViewAdapter extends BaseAdapter {
 		R.drawable.com_qunar_icon,R.drawable.com_qiyi_video_market_icon,R.drawable.com_pandora_android_icon,
 		R.drawable.com_olivephone_edit_icon};
 	
-	public static final int[] marce_res = new int[]{R.drawable.marce_appstore,R.drawable.marce_calendar,
-		R.drawable.marce_camera,R.drawable.marce_clock,R.drawable.marce_contacts,
-		R.drawable.marce_ipod,R.drawable.marce_itunes,R.drawable.marce_mail,
-		R.drawable.marce_maps,R.drawable.marce_music,R.drawable.marce_notes,
-		R.drawable.marce_phone,R.drawable.marce_photos,R.drawable.marce_safari,
-		R.drawable.marce_settings,R.drawable.marce_stocks,R.drawable.marce_text,
-		R.drawable.marce_videos,R.drawable.marce_weather,R.drawable.marce_youtube};
+	public static final int[] iphone_res = new int[]{R.drawable.iphone_browser,R.drawable.iphone_cal,
+		R.drawable.iphone_calblank,R.drawable.iphone_calc,R.drawable.iphone_camera,
+		R.drawable.iphone_chat,R.drawable.iphone_clock,R.drawable.iphone_dial,
+		R.drawable.iphone_graph,R.drawable.iphone_ipod,R.drawable.iphone_mail,
+		R.drawable.iphone_map,R.drawable.iphone_notes,R.drawable.iphone_sms,
+		R.drawable.iphone_tools,R.drawable.iphone_wallpaper,R.drawable.iphone_weather,
+		R.drawable.iphone_browser,R.drawable.iphone_dial,R.drawable.iphone_mail};
 	
-	public static final int[] matt_res = new int[]{R.drawable.matt_addressbook,R.drawable.matt_appstore,
-		R.drawable.matt_calculator,R.drawable.matt_mail,R.drawable.matt_maps,
-		R.drawable.matt_messages,R.drawable.matt_mobilecal,R.drawable.matt_mobilestore,
-		R.drawable.matt_mobiletimer,R.drawable.matt_notes,R.drawable.matt_phone,
-		R.drawable.matt_preferences,R.drawable.matt_safari,R.drawable.matt_stocks,
-		R.drawable.matt_winterboard,R.drawable.matt_youtube};
+	public static final int[] cold_res_1 = new int[]{R.drawable.cold_24sata,R.drawable.cold_ace,
+		R.drawable.cold_adblock,R.drawable.cold_aldiko,R.drawable.cold_amazon,
+		R.drawable.cold_basketball,R.drawable.cold_babyesp,R.drawable.cold_angrybirds,
+		R.drawable.cold_bootstrap,R.drawable.cold_calculator,R.drawable.cold_catan,
+		R.drawable.cold_chrome,R.drawable.cold_clock,R.drawable.cold_dial,
+		R.drawable.cold_disney,R.drawable.cold_dropbox,R.drawable.cold_email,
+		R.drawable.cold_facebook,R.drawable.cold_file,R.drawable.cold_fludnews};
 }

@@ -6,6 +6,7 @@ import com.willyan.iconchanger.utils.L;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
 
 class IconViewPagerAdapter extends FragmentPagerAdapter{
     
@@ -26,6 +27,12 @@ class IconViewPagerAdapter extends FragmentPagerAdapter{
     }
 
     @Override
+	public void destroyItem(ViewGroup container, int position, Object object) {
+		// TODO Auto-generated method stub
+		super.destroyItem(container, position, object);
+	}
+
+	@Override
     public int getCount() {
         return mCount;
     }

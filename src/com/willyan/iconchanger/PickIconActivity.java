@@ -172,11 +172,11 @@ public class PickIconActivity extends FragmentActivity implements
 		case IconGridViewAdapter.STYLE_SMARTISAN_4:
 			tmp = IconGridViewAdapter.smartisan_res_4;
 			break;
-		case IconGridViewAdapter.STYLE_MARCE:
-			tmp = IconGridViewAdapter.marce_res;
+		case IconGridViewAdapter.STYLE_IPHONE:
+			tmp = IconGridViewAdapter.iphone_res;
 			break;
-		case IconGridViewAdapter.STYLE_MATT:
-			tmp = IconGridViewAdapter.matt_res;
+		case IconGridViewAdapter.STYLE_COLD_1:
+			tmp = IconGridViewAdapter.cold_res_1;
 			break;
 		default:
 			break;
