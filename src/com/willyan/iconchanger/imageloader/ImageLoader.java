@@ -30,12 +30,17 @@ public class ImageLoader {
 	private ExecutorService executorService;
 	private Context mContext;
 
+	/**
+	 * Manage image display, download and recycle.
+	 * @param context
+	 * @param needThreadPool Display local image doesn't need this
+	 */
 	public ImageLoader(Context context,boolean needThreadPool) {
 		mContext = context;
 		memoryCache = new MemoryCache();
-		fileCache = new FileCache(context);
 		imageViewMaps = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
 		if (needThreadPool) {
+			fileCache = new FileCache(context);
 			executorService = Executors.newFixedThreadPool(5);
 		}
 	}
@@ -46,7 +51,7 @@ public class ImageLoader {
 	 * @param imageView
 	 * @param isLoadOnlyFromCache
 	 */
-	public void DisplayImage(String url, ImageView imageView,
+	public void displayImage(String url, ImageView imageView,
 			boolean isLoadOnlyFromCache) {
 		imageViewMaps.put(imageView, url);
 		
@@ -65,7 +70,7 @@ public class ImageLoader {
 	 * @param resId
 	 * @param imageView
 	 */
-	public void DisplayImage(int resId, ImageView imageView){
+	public void displayImage(int resId, ImageView imageView){
 		String id = String.valueOf(resId);
 		imageViewMaps.put(imageView,id);
 		Bitmap bitmap = memoryCache.get(id);
@@ -73,12 +78,9 @@ public class ImageLoader {
 			imageView.setImageBitmap(bitmap);
 		}else {
 			BitmapFactory.Options opts = new Options();
-			opts.inSampleSize = 3;
+			opts.inSampleSize = 2;
 			bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId , opts);
-			ImageInfo imgInfo = new ImageInfo(id, imageView);
-			memoryCache.put(imgInfo.url, bitmap);
-			if (imageViewReused(imgInfo))
-				return;
+			memoryCache.put(id, bitmap);
 			imageView.setImageBitmap(bitmap);
 		}
 	}

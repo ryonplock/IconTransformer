@@ -1,7 +1,5 @@
 package com.willyan.iconchanger;
 
-import com.willyan.iconchanger.R;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,12 +7,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.willyan.iconchanger.imageloader.ImageLoader;
+
 public class IconGridViewAdapter extends BaseAdapter {
 
 	private Context mComtext;
 	private int mStyle;
 	private int[] mRes;
 	private Holder holder = null;
+	private ImageLoader mImageLoader;
 	
 	public static final int STYLE_SMARTISAN_1 = 2001;
 	public static final int STYLE_SMARTISAN_2 = 2002;
@@ -33,6 +34,7 @@ public class IconGridViewAdapter extends BaseAdapter {
 		super();
 		mComtext = context;
 		mStyle = style;
+		mImageLoader = new ImageLoader(context, false);
 		
 		switch(mStyle){
 		case STYLE_SMARTISAN_1:
@@ -87,7 +89,8 @@ public class IconGridViewAdapter extends BaseAdapter {
 			holder = (Holder) convertView.getTag();
 		}
 		if (mRes != null && position < mRes.length){
-			holder.imageView.setImageResource(mRes[position]);
+//			holder.imageView.setImageResource(mRes[position]);
+			mImageLoader.displayImage(mRes[position], holder.imageView);
 		}
 		return convertView;
 	}
