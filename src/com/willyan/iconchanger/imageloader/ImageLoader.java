@@ -20,32 +20,35 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapFactory.Options;
 import android.widget.ImageView;
 
 public class ImageLoader {
 	private MemoryCache memoryCache;
 	private AbstractFileCache fileCache;
-	private Map<ImageView, String> imageViews;
+	private Map<ImageView, String> imageViewMaps;
 	private ExecutorService executorService;
+	private Context mContext;
 
 	public ImageLoader(Context context,boolean needThreadPool) {
+		mContext = context;
 		memoryCache = new MemoryCache();
 		fileCache = new FileCache(context);
-		imageViews = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
+		imageViewMaps = Collections.synchronizedMap(new WeakHashMap<ImageView, String>());
 		if (needThreadPool) {
 			executorService = Executors.newFixedThreadPool(5);
 		}
 	}
 	
 	/**
-	 * Display image
+	 * Display image from net
 	 * @param url
 	 * @param imageView
 	 * @param isLoadOnlyFromCache
 	 */
 	public void DisplayImage(String url, ImageView imageView,
 			boolean isLoadOnlyFromCache) {
-		imageViews.put(imageView, url);
+		imageViewMaps.put(imageView, url);
 		
 		// firstly, find in cache
 		Bitmap bitmap = memoryCache.get(url);
@@ -54,6 +57,29 @@ public class ImageLoader {
 		} else if (!isLoadOnlyFromCache) {
 			// submit a thread into ExecutorService to download
 			queuePhoto(url, imageView);
+		}
+	}
+	
+	/**
+	 * Display image from local
+	 * @param resId
+	 * @param imageView
+	 */
+	public void DisplayImage(int resId, ImageView imageView){
+		String id = String.valueOf(resId);
+		imageViewMaps.put(imageView,id);
+		Bitmap bitmap = memoryCache.get(id);
+		if (bitmap != null) {
+			imageView.setImageBitmap(bitmap);
+		}else {
+			BitmapFactory.Options opts = new Options();
+			opts.inSampleSize = 3;
+			bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId , opts);
+			ImageInfo imgInfo = new ImageInfo(id, imageView);
+			memoryCache.put(imgInfo.url, bitmap);
+			if (imageViewReused(imgInfo))
+				return;
+			imageView.setImageBitmap(bitmap);
 		}
 	}
 	
@@ -197,7 +223,7 @@ public class ImageLoader {
 	 * @return
 	 */
 	boolean imageViewReused(ImageInfo imageInfo) {
-		String tag = imageViews.get(imageInfo.imageView);
+		String tag = imageViewMaps.get(imageInfo.imageView);
 		if (tag == null || !tag.equals(imageInfo.url))
 			return true;
 		return false;
@@ -222,7 +248,7 @@ public class ImageLoader {
 
 	public void clearCache() {
 		memoryCache.clear();
-		imageViews.clear();
+		imageViewMaps.clear();
 		shutdown();
 	}
 	
