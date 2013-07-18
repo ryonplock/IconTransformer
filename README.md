@@ -5,4 +5,5 @@ Android Icon Changer
 
 Create shortcut with specified icon on home screen.
 
-Updated 2013.7.15
+Updated 2013.7.18
+
