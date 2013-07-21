@@ -55,7 +55,6 @@ public class PickIconActivity extends FragmentActivity implements
 		mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
 		mIndicator.setViewPager(mViewPager);
 		
-		
 		super.onCreate(savedInstanceState);
 	}
 	
@@ -105,6 +104,9 @@ public class PickIconActivity extends FragmentActivity implements
 		}
 	}
 	
+	public void onMenuClicked(View view){
+		//TODO 
+	}
 	
 	private void startSystemGallery(){
 		Intent in = new Intent(Intent.ACTION_PICK, null);

@@ -88,6 +88,7 @@ public class PickAppActivity extends Activity {
 						appInfo.packageName = info.activityInfo.packageName;
 						appInfo.activityName = info.activityInfo.name;
 						infoList.add(appInfo);
+						L.i("> " + i + "<: " + appInfo.toString());
 					}// end for
 				}
 				handler.sendEmptyMessage(STOP_LOADING);
@@ -186,6 +187,12 @@ public class PickAppActivity extends Activity {
 		public Drawable icon = null;
 		public String packageName = "";
 		public String activityName = "";
+		@Override
+		public String toString() {
+			return "AppInfo [appName=" + appName + ", packageName=" + packageName + ", activityName="
+					+ activityName + "]";
+		}
+		
 	}
 
 }
