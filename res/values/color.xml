@@ -6,5 +6,7 @@
     <color name="black">#000000</color>
     <color name="black_transparent">#7F000000</color>
     <color name="dimGray">#696969</color>
+    <color name="grayline">#2000</color>
+    
     
 </resources>

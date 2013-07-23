@@ -7,5 +7,7 @@
     <string name="loading_app">Loading Application...</string>
     <string name="pick_icon">Pick icon in Gallery</string>
     <string name="input_appname">Please input app name</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_setting">Setting</string>
 
 </resources>
