@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -35,6 +36,8 @@ public class PickAppActivity extends Activity {
 	private ArrayList<AppInfo> infoList = new ArrayList<AppInfo>();
 	private BaseAdapter mAdapter;
 	private PackageManager manager;
+	private MenuPopupWindows mMenuPopup;
+	private Button btn_menu;
 	private final static int START_LOADING = 0x01;
 	private final static int STOP_LOADING = 0x02;
 
@@ -61,6 +64,9 @@ public class PickAppActivity extends Activity {
 		});
 		progressBar = (RelativeLayout) findViewById(R.id.progress_bar);
 		progressBar.setVisibility(View.INVISIBLE);
+		
+		btn_menu = (Button) findViewById(R.id.menu);
+		mMenuPopup = new MenuPopupWindows(btn_menu, this);
 		loadAppList();
 	}
 	
@@ -88,7 +94,7 @@ public class PickAppActivity extends Activity {
 						appInfo.packageName = info.activityInfo.packageName;
 						appInfo.activityName = info.activityInfo.name;
 						infoList.add(appInfo);
-						L.i("> " + i + "<: " + appInfo.toString());
+//						L.i("> " + i + "<: " + appInfo.toString());
 					}// end for
 				}
 				handler.sendEmptyMessage(STOP_LOADING);
@@ -175,6 +181,7 @@ public class PickAppActivity extends Activity {
 	
 	public void onMenuClicked(View view){
 		//TODO 
+		mMenuPopup.show();
 	}
 
 	class Holder {

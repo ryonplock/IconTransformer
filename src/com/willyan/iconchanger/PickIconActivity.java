@@ -32,6 +32,8 @@ public class PickIconActivity extends FragmentActivity implements
 	private IconViewPagerAdapter mPagerAdapter;
 	private PageIndicator mIndicator;
 	private String appName, packageName, activityName;
+	private MenuPopupWindows mMenuPopup;
+	private Button btn_menu;
 	private static final int REQUEST_CODE_SYETEM_GALLERY = 0x1001;
 	private static final int REQUEST_CODE_SYETEM_CROP = 0x1002;
 
@@ -54,6 +56,9 @@ public class PickIconActivity extends FragmentActivity implements
 		mViewPager.setAdapter(mPagerAdapter);
 		mIndicator = (UnderlinePageIndicator) findViewById(R.id.indicator);
 		mIndicator.setViewPager(mViewPager);
+		
+		btn_menu = (Button) findViewById(R.id.menu);
+		mMenuPopup = new MenuPopupWindows(btn_menu, this);
 		
 		super.onCreate(savedInstanceState);
 	}
@@ -105,7 +110,8 @@ public class PickIconActivity extends FragmentActivity implements
 	}
 	
 	public void onMenuClicked(View view){
-		//TODO 
+		//TODO
+		mMenuPopup.show();
 	}
 	
 	private void startSystemGallery(){

@@ -1,6 +1,9 @@
 package com.willyan.iconchanger;
 
+import com.willyan.iconchanger.utils.Utils;
+
 import android.app.Activity;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,6 +14,7 @@ public class MenuPopupWindows implements OnClickListener{
 	private Activity mActivity;
 	private PopupWindow mPopWindow=null;
 	private View mAttchView;
+	private int popup_width, popup_height;
 
 	public MenuPopupWindows(View attchView,Activity activity) {
 		mActivity = activity;
@@ -21,21 +25,24 @@ public class MenuPopupWindows implements OnClickListener{
 	private void initView(){
 		
 		View contentView = LayoutInflater.from(mActivity).inflate(R.layout.popup_menu, null);
-		mPopWindow = new PopupWindow(contentView);
+		popup_width = Utils.dip2px(mActivity, 180);
+		popup_height = Utils.dip2px(mActivity, 100);
+		mPopWindow = new PopupWindow(contentView, popup_width, popup_height);
+		mPopWindow.setFocusable(true);
+		mPopWindow.setBackgroundDrawable(new BitmapDrawable());
 		mPopWindow.setOutsideTouchable(true);
 		contentView.findViewById(R.id.text_share).setOnClickListener(this);
 		contentView.findViewById(R.id.text_setting).setOnClickListener(this);
-		//TODO
 	}
 	
 	public void show(){
-		//TODO
-		mPopWindow.showAsDropDown(mAttchView);
+		if (!mPopWindow.isShowing())
+			mPopWindow.showAsDropDown(mAttchView);
 	}
 	
 	public void dismiss(){
-		//TODO
-		mPopWindow.dismiss();
+		if (mPopWindow.isShowing())
+			mPopWindow.dismiss();
 	}
 
 	@Override
@@ -43,12 +50,11 @@ public class MenuPopupWindows implements OnClickListener{
 		
 		switch (v.getId()) {
 		case R.id.text_share:
-
+			//TODO
 			break;
 		case R.id.text_setting:
-
+			//TODO
 			break;
-
 		default:
 			break;
 		}
