@@ -77,9 +77,10 @@ public class ImageLoader {
 		if (bitmap != null) {
 			imageView.setImageBitmap(bitmap);
 		}else {
-			BitmapFactory.Options opts = new Options();
-			opts.inSampleSize = 2;
-			bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId , opts);
+//			BitmapFactory.Options opts = new Options();
+//			opts.inSampleSize = 2;
+//			bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId , opts);
+			bitmap = BitmapFactory.decodeResource(mContext.getResources(), resId);
 			memoryCache.put(id, bitmap);
 			imageView.setImageBitmap(bitmap);
 		}
