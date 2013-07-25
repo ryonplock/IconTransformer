@@ -1,6 +1,8 @@
 package com.willyan.iconchanger.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 
 public class Utils {
 	
@@ -13,6 +15,15 @@ public class Utils {
 	public static int px2dip(Context context, float pxValue) {
 		final float scale = context.getResources().getDisplayMetrics().density;
 		return (int) (pxValue / scale + 0.5f);
+	}
+	
+	public static void shareAction(Activity activity){
+		Intent intent=new Intent(Intent.ACTION_SEND);   
+		intent.setType("text/plain");   
+		intent.putExtra(Intent.EXTRA_SUBJECT,"EXTRA_SUBJECT");   
+		intent.putExtra(Intent.EXTRA_TEXT, "EXTRA_TEXT");
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);   
+		activity.startActivity(Intent.createChooser(intent, "Share"));
 	}
 
 }
