@@ -51,8 +51,10 @@ public class MenuPopupWindows implements OnClickListener{
 		switch (v.getId()) {
 		case R.id.text_share:
 			Utils.shareAction(mActivity);
+			dismiss();
 			break;
 		case R.id.text_setting:
+			dismiss();
 			//TODO
 			break;
 		default:
