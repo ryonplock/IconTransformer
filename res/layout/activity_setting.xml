@@ -5,5 +5,8 @@
     android:background="@color/white_snow"
     android:orientation="vertical" >
     
+    <include android:id="@+id/titlebar"
+        layout="@layout/activity_header"/>
+    
 
 </LinearLayout>
