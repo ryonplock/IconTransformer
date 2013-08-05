@@ -3,6 +3,7 @@ package com.willyan.iconchanger;
 import com.willyan.iconchanger.utils.Utils;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,8 +55,8 @@ public class MenuPopupWindows implements OnClickListener{
 			dismiss();
 			break;
 		case R.id.text_setting:
+			mActivity.startActivity(new Intent(mActivity.getApplicationContext(), SettingActivity.class));
 			dismiss();
-			//TODO
 			break;
 		default:
 			break;
