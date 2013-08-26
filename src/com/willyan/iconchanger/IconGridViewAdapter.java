@@ -145,7 +145,7 @@ public class IconGridViewAdapter extends BaseAdapter {
 	
 	public static final int[] cold_res_1 = new int[]{R.drawable.cold_24sata,R.drawable.cold_ace,
 		R.drawable.cold_adblock,R.drawable.cold_aldiko,R.drawable.cold_amazon,
-		R.drawable.cold_basketball,R.drawable.cold_babyesp,R.drawable.cold_angrybirds,
+		R.drawable.cold_basketball,R.drawable.cold_baby,R.drawable.cold_angrybirds,
 		R.drawable.cold_bootstrap,R.drawable.cold_calculator,R.drawable.cold_catan,
 		R.drawable.cold_chrome,R.drawable.cold_clock,R.drawable.cold_dial,
 		R.drawable.cold_disney,R.drawable.cold_dropbox,R.drawable.cold_email,
