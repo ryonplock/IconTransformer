@@ -58,9 +58,15 @@ public class MemoryCache {
 		if (size > limit) {
 			// find the Least Recently Used one
 			Iterator<Entry<String, Bitmap>> iter = cache.entrySet().iterator();
+			Bitmap bitmap;
 			while (iter.hasNext()) {
 				Entry<String, Bitmap> entry = iter.next();
 				size -= getSizeInBytes(entry.getValue());
+				bitmap = entry.getValue();
+				if (bitmap != null && !bitmap.isRecycled()){
+					bitmap.recycle();
+					bitmap = null;
+				}
 				iter.remove();
 				if (size <= limit)
 					break;
