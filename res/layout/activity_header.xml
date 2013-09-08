@@ -9,7 +9,7 @@
         android:layout_width="35dip"
         android:layout_marginLeft="3dip"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_iconbar"/>
+        android:src="@drawable/ic_launcher"/>
     
     <TextView android:id="@+id/title"
         android:layout_height="45dip"
