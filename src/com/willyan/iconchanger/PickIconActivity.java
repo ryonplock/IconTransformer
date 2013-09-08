@@ -39,7 +39,6 @@ public class PickIconActivity extends FragmentActivity implements
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_pickicon);
 		Intent intent = getIntent();
 		appName = intent.getStringExtra("appName");

@@ -19,9 +19,9 @@ public class Utils {
 	
 	public static void shareAction(Activity activity){
 		Intent intent=new Intent(Intent.ACTION_SEND);   
-		intent.setType("text/plain");   
-		intent.putExtra(Intent.EXTRA_SUBJECT,"EXTRA_SUBJECT");   
-		intent.putExtra(Intent.EXTRA_TEXT, "EXTRA_TEXT");
+		intent.setType("text/plain");
+		intent.putExtra(Intent.EXTRA_SUBJECT, "Shared From IconChanger");   
+		intent.putExtra(Intent.EXTRA_TEXT, "Hey, I'm using IconChanger.");
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);   
 		activity.startActivity(Intent.createChooser(intent, "Share"));
 	}
