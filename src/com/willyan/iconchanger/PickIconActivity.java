@@ -154,6 +154,7 @@ public class PickIconActivity extends FragmentActivity implements
 				shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, value);
 			}
 			sendBroadcast(shortcutIntent);
+			// TODO Change to Dialog 
 			Toast.makeText(this, "Create Shortcut Success! ", Toast.LENGTH_SHORT).show();
 		} catch (Exception e) {
 			e.printStackTrace();
