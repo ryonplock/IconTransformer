@@ -25,7 +25,6 @@ public class MemoryCache {
 
 	public void setLimit(long new_limit) {
 		limit = new_limit;
-		L.i("MemoryCache will use up to " + limit / 1024. / 1024. + "MB");
 	}
 
 	public Bitmap get(String id) {
@@ -54,7 +53,6 @@ public class MemoryCache {
 	 * Control heap size, arithmetic LRU (Least Recently Used)
 	 */
 	private void checkSize() {
-		L.i("cache size=" + size + " length=" + cache.size());
 		if (size > limit) {
 			// find the Least Recently Used one
 			Iterator<Entry<String, Bitmap>> iter = cache.entrySet().iterator();

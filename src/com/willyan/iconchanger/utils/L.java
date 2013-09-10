@@ -28,7 +28,7 @@ public class L {
 	}
 	
 	/**
-	 * Log for the working process 
+	 * Log for the working process >>>>>
 	 * @param classname
 	 * @param methodname 
 	 * @param msg can be null, for nothing

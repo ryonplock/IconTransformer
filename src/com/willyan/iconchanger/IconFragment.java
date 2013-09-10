@@ -19,6 +19,7 @@ public final class IconFragment extends Fragment {
 	private IconItemClickListener mIconItemClick;
 	
     public static IconFragment newInstance(int style, IconItemClickListener iconItemClick) {
+    	L.p("IconFragment", "newInstance ", "style: " + style);
     	IconFragment fragment = new IconFragment();
         fragment.mStyle = style;
         fragment.mIconItemClick = iconItemClick;
@@ -27,17 +28,17 @@ public final class IconFragment extends Fragment {
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	L.p("IconFragment", "onCreate", null);
         super.onCreate(savedInstanceState);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+    	L.p("IconFragment", "onCreateView ", "mStyle:" + mStyle);
     	View view = inflater.inflate(R.layout.viewpager, null);
     	iconsView = (GridView) view.findViewById(R.id.icons_grid);
 		//TODO
-    	L.i("onCreateView " + mStyle);
 		IconGridViewAdapter adapter = new IconGridViewAdapter(getActivity(), mStyle);
 		iconsView.setAdapter(adapter);
 		iconsView.setOnItemClickListener(new OnItemClickListener() {

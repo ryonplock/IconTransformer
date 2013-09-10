@@ -17,7 +17,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -164,7 +163,7 @@ public class PickIconActivity extends FragmentActivity implements
 
 	@Override
 	public void onIconItemClick(int style, int position) {
-		L.e("onIconItemClick: " + style + "/" + position);
+		L.i("onIconItemClick: " + style + "/" + position);
 		int[] tmp = null;
 		switch(style){
 		case IconGridViewAdapter.STYLE_SMARTISAN_1:
