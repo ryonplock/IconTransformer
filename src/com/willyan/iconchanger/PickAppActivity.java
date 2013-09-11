@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.umeng.analytics.MobclickAgent;
 import com.willyan.iconchanger.animation.AlphaInAnimationAdapter;
 import com.willyan.iconchanger.utils.L;
 
@@ -60,6 +61,8 @@ public class PickAppActivity extends Activity {
 				intent.putExtra("activityName", activityName);
 				intent.setClass(PickAppActivity.this, PickIconActivity.class);
 				startActivity(intent);
+				//statistic analysis for Picked App
+				MobclickAgent.onEvent(getApplicationContext(), "PickedAppName", appName);
 			}
 		});
 		progressBar = (RelativeLayout) findViewById(R.id.progress_bar);

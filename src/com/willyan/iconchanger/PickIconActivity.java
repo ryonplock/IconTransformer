@@ -1,5 +1,6 @@
 package com.willyan.iconchanger;
 
+import com.umeng.analytics.MobclickAgent;
 import com.willyan.iconchanger.R;
 import com.willyan.iconchanger.IconFragment.IconItemClickListener;
 import com.willyan.iconchanger.indicator.PageIndicator;
@@ -154,7 +155,9 @@ public class PickIconActivity extends FragmentActivity implements
 				shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, value);
 			}
 			sendBroadcast(shortcutIntent);
-			// TODO Change to Dialog 
+			// statistic analysis for Shortcut created App
+			MobclickAgent.onEvent(getApplicationContext(), "PickedAppName", appName);
+			// TODO Change to Dialog
 			Toast.makeText(this, "Create Shortcut Success! ", Toast.LENGTH_SHORT).show();
 		} catch (Exception e) {
 			e.printStackTrace();
