@@ -9,19 +9,20 @@ public class BaseActivity extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		MobclickAgent.setDebugMode(true);
 		super.onCreate(savedInstanceState);
 	}
 
 	@Override
 	protected void onResume() {
-		super.onResume();
 		MobclickAgent.onResume(this);
+		super.onResume();
 	}
 
 	@Override
 	protected void onPause() {
-		super.onPause();
 		MobclickAgent.onPause(this);
+		super.onPause();
 	}
 
 	@Override
