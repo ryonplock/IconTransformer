@@ -30,7 +30,6 @@ public final class IconFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
     	L.p("IconFragment", "onCreate", null);
         super.onCreate(savedInstanceState);
-
     }
 
     @Override

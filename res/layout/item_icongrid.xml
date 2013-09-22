@@ -6,12 +6,12 @@
 
     <ImageView
         android:id="@+id/icon"
-        android:padding="1dip"
-        android:layout_marginTop="13dip"
-        android:layout_marginBottom="13dip"
+        android:padding="@dimen/icongrid_padding"
+        android:layout_marginTop="@dimen/icongrid_top_margin"
+        android:layout_marginBottom="@dimen/icongrid_bottom_margin"
         android:layout_centerInParent="true"
-        android:layout_width="59dip"
-        android:layout_height="60dip"
+        android:layout_width="@dimen/icongrid_width"
+        android:layout_height="@dimen/icongrid_height"
         android:src="@drawable/ic_launcher"
         android:scaleType="fitCenter" />
 
