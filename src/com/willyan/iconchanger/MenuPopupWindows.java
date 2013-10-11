@@ -27,7 +27,7 @@ public class MenuPopupWindows implements OnClickListener{
 		
 		View contentView = LayoutInflater.from(mActivity).inflate(R.layout.popup_menu, null);
 		popup_width = Utils.dip2px(mActivity, 180);
-		popup_height = Utils.dip2px(mActivity, 100);
+		popup_height = Utils.dip2px(mActivity, 110);
 		mPopWindow = new PopupWindow(contentView, popup_width, popup_height);
 		mPopWindow.setFocusable(true);
 		mPopWindow.setBackgroundDrawable(new BitmapDrawable());

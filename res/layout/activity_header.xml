@@ -15,8 +15,8 @@
         android:layout_height="45dip"
         android:layout_width="wrap_content"
         android:layout_toRightOf="@id/icon"
-        android:text="@string/app_name"
-        android:textColor="@color/white_snow"
+        android:text="@string/app_title"
+        android:textColor="@color/steelblue"
         android:textSize="20sp"
         android:layout_marginLeft="5dip"
         android:gravity="center_vertical"/>
