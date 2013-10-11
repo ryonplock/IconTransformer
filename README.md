@@ -1,7 +1,7 @@
-IconChanger
+IconTransformer 
 ===========
 
-Android Icon Changer
+Android Icon Transformer 
 
 Create shortcut with specified icon on home screen.
 

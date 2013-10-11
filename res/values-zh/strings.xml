@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">图标修改器</string>
+    <string name="loading_app">加载所有应用程序...</string>
+    <string name="pick_icon">选择手机中的图标</string>
+    <string name="input_appname">请输入应用名</string>
+    <string name="menu_share">分享</string>
+    <string name="menu_setting">设置</string>
+
+</resources>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">IconChanger</string>
-    <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="app_name">IconTransformer</string>
     <string name="loading_app">Loading Application...</string>
+    <string name="action_settings">Settings</string>
     <string name="pick_icon">Pick icon in Gallery</string>
     <string name="input_appname">Please input app name</string>
     <string name="menu_share">Share</string>
