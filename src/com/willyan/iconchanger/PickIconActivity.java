@@ -10,6 +10,7 @@ import com.willyan.iconchanger.utils.L;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class PickIconActivity extends FragmentActivity implements
@@ -34,6 +36,7 @@ public class PickIconActivity extends FragmentActivity implements
 	private String appName, packageName, activityName;
 	private MenuPopupWindows mMenuPopup;
 	private Button btn_menu;
+	private TextView tx_title;
 	private static final int REQUEST_CODE_SYETEM_GALLERY = 0x1001;
 	private static final int REQUEST_CODE_SYETEM_CROP = 0x1002;
 
@@ -58,6 +61,10 @@ public class PickIconActivity extends FragmentActivity implements
 		
 		btn_menu = (Button) findViewById(R.id.menu);
 		mMenuPopup = new MenuPopupWindows(btn_menu, this);
+		
+//		tx_title = (TextView) findViewById(R.id.title);
+//		Typeface font_source = Typeface.createFromAsset(getResources().getAssets(),"source-code-pro-regular.ttf");
+//		tx_title.setTypeface(font_source);
 		
 		super.onCreate(savedInstanceState);
 	}

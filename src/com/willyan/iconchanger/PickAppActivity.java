@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +40,7 @@ public class PickAppActivity extends Activity {
 	private PackageManager manager;
 	private MenuPopupWindows mMenuPopup;
 	private Button btn_menu;
+	private TextView tx_title;
 	private final static int START_LOADING = 0x01;
 	private final static int STOP_LOADING = 0x02;
 
@@ -70,6 +72,10 @@ public class PickAppActivity extends Activity {
 		
 		btn_menu = (Button) findViewById(R.id.menu);
 		mMenuPopup = new MenuPopupWindows(btn_menu, this);
+		
+//		tx_title = (TextView) findViewById(R.id.title);
+//		Typeface font_source = Typeface.createFromAsset(getResources().getAssets(),"source-code-pro-regular.ttf");
+//		tx_title.setTypeface(font_source);
 		loadAppList();
 	}
 	
